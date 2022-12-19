@@ -12,32 +12,32 @@ export function useAuth() {
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading,setLoading] = useState(true);
+    const [error, setError] = useState('');
     const navigate = useNavigate()
+
 
     async function signup(email, password) {
         return await createUserWithEmailAndPassword(auth, email, password)
         .then(info => {
-            console.log(info);
             navigate('/')
         }).catch((err) => {
-            alert(err)
+            setError(err);
         });
     }
 
     async function login (email, password) {
         return await signInWithEmailAndPassword(auth, email, password)
         .then(info => {
-            console.log(info);
             navigate('/')
         }).catch((err) => {
-            alert(err);
+            setError(err)
         });
     }
 
     async function logOut () {
         return await signOut(auth)
         .catch((err) => {
-            alert(err)
+            setError(err)
         })
     }
     
@@ -54,7 +54,7 @@ export function AuthProvider({children}) {
         currentUser,
         signup,
         login,
-        logOut
+        logOut,
     }
   return (
     <AuthContext.Provider value={value}>

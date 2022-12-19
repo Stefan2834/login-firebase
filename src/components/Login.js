@@ -6,9 +6,8 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
-  const [error,setError] = useState();
+  const [error,setError] = useState('');
   const [loading, setLoading] =  useState(false);
-
 
   
 
@@ -17,14 +16,11 @@ export default function Login() {
 
 
     try {
-        setError('')
         setLoading(true)
         await login(emailRef.current.value, passwordRef.current.value)
     } catch {
-        setError('Failed to Sign in');
-        console.log('test');
+        setError('Failed to Log in');
     }
-    setLoading(false)
   }
   return (
 
@@ -42,7 +38,7 @@ export default function Login() {
                 <button disabled={loading} className="self-center rounded-md py-1.5 px-3 my-4 bg-blue-600 text-white" type="submit">Log in</button>
             </form>
             <div className='text-center'>
-                Need an accound?<Link className='text-white' to='/signup'>Sing up</Link>
+                Need an account?<Link className='text-white' to='/signup'>Sing up</Link>
             </div>
         </div>
     </div>

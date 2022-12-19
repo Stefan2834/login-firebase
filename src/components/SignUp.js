@@ -8,28 +8,24 @@ export default function SignUp() {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
-  const [error,setError] = useState();
   const [loading, setLoading] =  useState(false);
+  const [error, setError] = useState('')  
 
-
-  
-
-  async function handleSubmit(e) {
-      e.preventDefault()
+    async function handleSubmit(e) {
+        e.preventDefault()
       
-      if(passwordRef.current.value !== passwordConfirmRef.current.value) {
-          return setError('Password don\'t match')
-    }
+        if(passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Password don\'t match')
+        } else {
+            try {
+                setLoading(true)
+                await signup(emailRef.current.value, passwordRef.current.value)
+            } catch (err){
+                setError('Failed to create an account');
+            }
+        }
+        setLoading(false)
 
-    try {
-        setError('')
-        setLoading(true)
-        await signup(emailRef.current.value, passwordRef.current.value)
-    } catch (err){
-        setError('Failed to create an account');
-        console.log(err);
-    }
-    setLoading(false)
   }
   return (
     <div className='flex justify-center items-center w-screen h-screen'>
