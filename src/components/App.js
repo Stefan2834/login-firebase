@@ -1,13 +1,13 @@
 import '../index.css';
 import SignUp from './SignUp';
 import {AuthProvider} from '../contexts/AuthContext';
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Login from './Login'
 
 function App() {
   return (
-      <HashRouter>
+      <BrowserRouter>
         <AuthProvider>
           <Routes>
             <Route path='/' index element={<Dashboard />} />
@@ -15,7 +15,7 @@ function App() {
             <Route path='/login' element={<Login />} />
           </Routes>
         </AuthProvider>
-      </HashRouter>
+      </BrowserRouter>
   );
 }
 export default App;
