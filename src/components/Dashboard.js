@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useAuth} from '../contexts/AuthContext'
 import {useNavigate, Link} from 'react-router-dom'
 
@@ -6,6 +6,12 @@ const Dashboard = () => {
     const [setError] = useState();
     const {currentUser, logOut} = useAuth();
     const navigate = useNavigate()
+
+    useEffect(() => {
+      if(!currentUser) {
+        navigate('/signup')
+      }
+    })
     async function handleLogout() {
         try {
             await logOut();
@@ -16,7 +22,7 @@ const Dashboard = () => {
     }
     return (
         <>
-        {currentUser ? (
+        {currentUser && (
         <div className='flex justify-center items-center w-screen h-screen'>
           <div className='rounded-lg p-4 flex justify-around flex-col items-center bg-lime-400'>
                 <p className='text-2xl font-medium'>Profile</p>
@@ -26,13 +32,6 @@ const Dashboard = () => {
                 </div>
           </div>
         </div>
-        ) : (
-          <div className='flex justify-center items-center w-screen h-screen'>
-          <div className='rounded-lg p-4 bg-lime-400 text-center'>You need to<br />
-            <Link to='/login' className='text-white'>Login </Link>or 
-            <Link to='/signup' className='text-white'> Signup</Link> 
-          </div>
-          </div>
         )}
         </>
     )
