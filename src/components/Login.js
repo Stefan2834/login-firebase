@@ -1,13 +1,17 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { useAuth } from '../contexts/AuthContext';
 import {Link} from 'react-router-dom'
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
-  const [error,setError] = useState('');
+  const { login,error, setError } = useAuth();
   const [loading, setLoading] =  useState(false);
+
+  useEffect(() => {
+    setError()
+  }, [])
+  
 
   
 
@@ -17,10 +21,12 @@ export default function Login() {
 
     try {
         setLoading(true)
+        setError()
         await login(emailRef.current.value, passwordRef.current.value)
     } catch {
         setError('Failed to Log in');
     }
+    setLoading(false)
   }
   return (
 
@@ -31,6 +37,9 @@ export default function Login() {
             <form onSubmit={handleSubmit}
             className="flex justify-around flex-col items-start m-6"
             >
+                {error && (
+                   <div className='text-lg flex justify-start items-center text-white p-2 w-80 rounded-lg bg-red-500'>{error}</div>
+                )}
                 <label className='my-2 text-lg'>Email</label>
                 <input className='px-2 h-7 w-80 rounded-sm' type="email" ref={emailRef} required />
                 <label className='my-2 text-lg'>Password</label>

@@ -16,12 +16,13 @@ export function AuthProvider({children}) {
     const navigate = useNavigate()
 
 
+
     async function signup(email, password) {
         return await createUserWithEmailAndPassword(auth, email, password)
         .then(info => {
             navigate('/')
         }).catch((err) => {
-            setError(err);
+            setError(err.message);
         });
     }
 
@@ -30,7 +31,7 @@ export function AuthProvider({children}) {
         .then(info => {
             navigate('/')
         }).catch((err) => {
-            setError(err)
+            setError(err.message);
         });
     }
 
@@ -55,6 +56,8 @@ export function AuthProvider({children}) {
         signup,
         login,
         logOut,
+        error,
+        setError
     }
   return (
     <AuthContext.Provider value={value}>

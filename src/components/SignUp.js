@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { useAuth } from '../contexts/AuthContext';
 import {Link} from 'react-router-dom';
 
@@ -7,9 +7,12 @@ export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
-  const [loading, setLoading] =  useState(false);
-  const [error, setError] = useState('')  
+  const { signup, error, setError } = useAuth();
+  const [loading, setLoading] =  useState(false); 
+
+  useEffect(() => {
+    setError()
+  }, [])
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -19,9 +22,10 @@ export default function SignUp() {
         } else {
             try {
                 setLoading(true)
+                setError();
                 await signup(emailRef.current.value, passwordRef.current.value)
             } catch (err){
-                setError('Failed to create an account');
+                setError('Failed to create an account' );
             }
         }
         setLoading(false)
@@ -34,6 +38,9 @@ export default function SignUp() {
             <form onSubmit={handleSubmit}
             className="flex justify-around flex-col items-start m-6"
             >
+                {error && (
+                   <div className='text-lg flex justify-start items-center text-white p-2 w-80 rounded-lg bg-red-500'>{error}</div>
+                )}
                 <label className='my-2 text-lg'>Email</label>
                 <input className='px-2 h-7 w-80 rounded-sm' type="email" ref={emailRef} required />
                 <label className='my-2 text-lg'>Password</label>
