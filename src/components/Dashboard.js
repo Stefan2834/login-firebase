@@ -33,8 +33,8 @@ const Dashboard = () => {
         setError()
         if(!currentUser) {
             navigate('/signup');
+            getDatabase()
         }
-        getDatabase()
     }, [])
 
 
