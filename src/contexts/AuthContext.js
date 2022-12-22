@@ -15,7 +15,6 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading,setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [username, setUsername] = useState('')
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -32,7 +31,7 @@ export function AuthProvider({children}) {
         await set(reference, {
             email : email,
             username : username,
-            password : password
+            password : password,
         })
       }
     
@@ -70,7 +69,6 @@ export function AuthProvider({children}) {
         login,
         logOut,
         error,setError,
-        username,setUsername
     }
   return (
     <AuthContext.Provider value={value}>
