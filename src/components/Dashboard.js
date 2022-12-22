@@ -3,7 +3,12 @@ import {useAuth} from '../contexts/AuthContext'
 import {useNavigate} from 'react-router-dom'
 
 const Dashboard = () => {
-    const {currentUser, logOut, error, setError} = useAuth();
+    const {
+        currentUser, 
+        logOut, 
+        error, setError,
+        username
+    } = useAuth();
     const navigate = useNavigate()
 
 
@@ -13,6 +18,8 @@ const Dashboard = () => {
             navigate('/signup');
         }
     }, [])
+
+
 
 
 
@@ -32,6 +39,7 @@ const Dashboard = () => {
             <div className='rounded-lg p-4 flex justify-around flex-col items-center bg-lime-400'>
                 <p className='text-2xl font-medium'>Profile</p>
                 <p className=' text-base mt-2'>Email: {currentUser.email}</p>
+                <p className=' text-base mt-2'>Username: {username}</p>
                 {error && (
                    <div className='mt-2 text-lg flex justify-start items-center text-white p-2 rounded-lg bg-red-500'>{error}</div>
                 )}

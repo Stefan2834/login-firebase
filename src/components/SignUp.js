@@ -7,12 +7,18 @@ export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup, error, setError } = useAuth();
+  const usernameRef = useRef()
+  const { 
+    signup, 
+    error, setError,
+    username,setUsername
+  } = useAuth();
   const [loading, setLoading] =  useState(false); 
 
   useEffect(() => {
     setError()
   }, [])
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -23,9 +29,10 @@ export default function SignUp() {
             try {
                 setLoading(true)
                 setError();
-                await signup(emailRef.current.value, passwordRef.current.value)
+                setUsername(usernameRef.current.value)
+                await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value)
             } catch (err){
-                setError('Failed to create an account' );
+                setError('Failed to create an account');
             }
         }
         setLoading(false)
@@ -41,6 +48,8 @@ export default function SignUp() {
                 {error && (
                    <div className='text-lg flex justify-start items-center text-white p-2 w-80 rounded-lg bg-red-500'>{error}</div>
                 )}
+                <label className='my-2 text-lg'>Username</label>
+                <input className='px-2 h-7 w-80 rounded-sm' type="name" ref={usernameRef} required />
                 <label className='my-2 text-lg'>Email</label>
                 <input className='px-2 h-7 w-80 rounded-sm' type="email" ref={emailRef} required />
                 <label className='my-2 text-lg'>Password</label>
