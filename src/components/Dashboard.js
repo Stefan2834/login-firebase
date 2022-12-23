@@ -8,12 +8,11 @@ const Dashboard = () => {
     const {
         currentUser, 
         logOut, 
-        error, setError,
+        setError,
     } = useAuth();
     const navigate = useNavigate()
     const [username, setUsername] = useState();
     const [background, setBackground] = useState();
-    const [proba, setProba] = useState([]);
 
     function getDatabase () {
         const nameRef = ref(db, 'users/' + currentUser.uid + '/username')
@@ -33,6 +32,7 @@ const Dashboard = () => {
         setError()
         if(!currentUser) {
             navigate('/signup');
+        } else {
             getDatabase()
         }
     }, [])
