@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState } from 'react'
 import {useAuth} from '../contexts/AuthContext'
 import {useNavigate} from 'react-router-dom'
 import {getDownloadURL, uploadBytes, ref} from 'firebase/storage'
@@ -13,7 +13,6 @@ const Dashboard = () => {
         username,
         url,setUrl
     } = useAuth();
-    const fileRef = useRef()
     const navigate = useNavigate()
     const [image, setImage] = useState(null)
 
@@ -88,9 +87,8 @@ const Dashboard = () => {
                         className='mr-1'
                         onSubmit={handleImage}
                     >
-                        <input type="file" ref={fileRef}
-                            onChange={handleChange} 
-                            className=" w-56"
+                        <input type="file" onChange={handleChange} 
+                            className="w-56"
                         />
                         <input type="submit" 
                             value="Submit"
@@ -98,7 +96,7 @@ const Dashboard = () => {
                         />
                     </form>
                     <div className='mr-4 w-10 h-10'>
-                        <img className='bg-cover bg-no-repeat rounded-sm' src={url}></img>
+                        <img className='bg-cover h-10 w-10 bg-no-repeat rounded-sm' src={url}></img>
                     </div>
                     <div className='mr-4 h-6 text-white w-auto'>{username}</div>
                     <div className='mr-4 h-6 text-white w-auto'>{currentUser.email}</div>
