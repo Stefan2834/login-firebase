@@ -15,8 +15,9 @@ export default function Connect() {
   const logEmailRef = useRef()
   const logPassRef = useRef()
   const {
-    login,
-    signup,
+    loginEmail,
+    signupEmail,
+    loginGoogle,
     error,setError,
     activeForm, setActiveForm
   } = useAuth();
@@ -32,7 +33,7 @@ export default function Connect() {
         try{
             setLoading(true)
             setError()
-            await signup(signEmailRef.current.value, signPassRef.current.value)
+            await signupEmail(signEmailRef.current.value, signPassRef.current.value)
         } catch {
             setError(`Failed to Signup`)
         }
@@ -43,7 +44,7 @@ export default function Connect() {
     try {
         setLoading(true)
         setError()
-        await login(logEmailRef.current.value, logPassRef.current.value)
+        await loginEmail(logEmailRef.current.value, logPassRef.current.value)
     } catch {
         setError('Failed to Login');
     }
@@ -56,10 +57,6 @@ export default function Connect() {
             <div class='sign-up'>
                 <form className='acc-form' onSubmit={handleSignUp}>
                     <div className='acc-form-title'>Create an account</div>
-                    <div>
-                        <img src={googleSvg} alt='GoogleImg' className='acc-svg-sign' />
-                    </div>
-                    <div className='acc-form-text'>or use your email</div>
 
                     <label class='acc-label'><img className='acc-svg' src={emailSvg} alt='Img' />
                         <input ref={signEmailRef} className='acc-input' type='email' placeholder=' ' required />
@@ -91,7 +88,7 @@ export default function Connect() {
                 <form className='acc-form' onSubmit={handleLogIn}>
                 <div className='acc-form-title'>Sign In</div>
                     <div>
-                        <img src={googleSvg} alt='GoogleImg' className='acc-svg-sign' />
+                        <img src={googleSvg} alt='GoogleImg' className='acc-svg-sign' onClick={() => loginGoogle()} />
                     </div>
                     <div className='acc-form-text'>or use your email</div>
 

@@ -9,7 +9,6 @@ const Dashboard = () => {
         currentUser, 
         logOut, 
         setError,
-        getDatabase,
         url,setUrl,
         setActiveForm
     } = useAuth();
@@ -90,7 +89,7 @@ const Dashboard = () => {
                         onSubmit={handleImage}
                     >
                         <input type="file" onChange={handleChange} 
-                            className="w-56"
+                            className="w-56" required
                         />
                         <input type="submit" 
                             value="Submit"
