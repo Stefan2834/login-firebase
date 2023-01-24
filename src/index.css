@@ -6,12 +6,15 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  display: flex;
-  align-items: center;
+  margin:0;
+}
+.acc-main {
+  width:100vw;
+  height:100vh;
+  display:flex;
+  align-items:center;
   justify-content: center;
-  flex-direction: column;
-  background-color: aliceblue;
-  height: 100vh;
+  background-color: #eee;
 }
 .container {
   position: relative;
@@ -21,7 +24,6 @@ body {
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
-
 }
 .sign-in, .sign-up {
   position: absolute;
@@ -39,78 +41,121 @@ body {
   width:50%;
   z-index:2;
 }
-form {
+
+/*----------Sign Up / Sign In----------*/
+
+
+form.acc-form {
   background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding:0 50px;
   height:100%;
   text-align: center;
 }
-h1 {
-  margin:0;
+.acc-form-title {
+  font-size:26px;
+  font-family: 'Noto sans serif', sans-serif;
+  font-weight: 600;
+  margin:10px 0 5px 0;
 }
-p {
+.acc-form-text {
   font-size:14px;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-  margin:15px 0 20px;
+  margin:8px 0;
+  font-family: 'Poppins', sans-serif;
 }
-input {
-  background-color: #eee;
-  padding:12px 15px;
-  margin:8px 15px;
+input.acc-input {
+  background-color:#eee;
+  padding:12px 15px 10px 55px;
   width:100%;
-  border-radius: 5px;
-  border:none;
+  border:1px solid transparent;
   outline: none;
-}
-input::placeholder {
-  transition: 300ms ease;
-}
-input:focus::placeholder {
-  transform: translateY(-20px);
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
   font-size:14px;
 }
-input:active {
-  border:1px solid aqua
-}
-input:invalid {
+input.acc-input:invalid{
   animation: wrong 300ms ease-in-out;
-  border:1px solid rgb(245, 46, 46);
+  border:1px solid rgb(249, 129, 129);
+}
+input.acc-input:valid {
+  background-color: rgb(230, 250, 255);
+}
+label.acc-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color:transparent;
+  border-radius: 5px;
+  margin:7px 0;
+  width:80%;
+  position: relative;
+}
+.acc-label .place-holder {
+  position: absolute;
+  transform: translateX(55px);
+  transition: 300ms ease;
+  opacity:0.8
+}
+input.acc-input:focus ~ .place-holder {
+  transform: translate(55px, -16px);
+  font-size:12px;
+}
+input.acc-input:not(:placeholder-shown) ~ .place-holder {
+  transform: translate(55px, -16px);
+  font-size:12px;
 }
 @keyframes wrong {
   0% {transform: translateX(0)}
-  33% {transform: translateX(-10px)}
-  66% {transform: translateX(10px)}
+  33% {transform: translateX(-5px)}
+  66% {transform: translateX(5px)}
   100% {transform: translateX(0);}
 }
-a {
+.acc-svg {
+  scale:0.6;
+  position: absolute;
+  z-index:1;
+  border-right: 1px solid rgb(39, 39, 39);
+  padding-right:10px;
+}
+.acc-svg-sign {
+  cursor: pointer;
+  scale:0.6;
+}
+.acc-svg-eye {
+  position: absolute;
+  right:0;
+  z-index:1;
+  border-left:1px solid rgb(39,39,39);
+  scale:0.7;
+  padding-left:10px;
+}
+.acc a {
   color:#333;
   margin:15px 0;
   text-decoration: none;
   font-size:14px;
 }
-button {
+button.acc-btn {
   color:#fff;
-  background-color: #ff4b2b;
-  font-size:12px;
+  background-color:transparent;
+  font-size:16px;
   padding: 12px 55px;
   margin:20px;
   border-radius: 20px;
-  border:1px solid #ff4b2b;
+  border:1px solid white;
   outline:none;
-  letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
-button:active {
+button.acc-btn:active {
   transform: scale(0.9);
 }
-.signIn, .signUp {
+.acc-btn {
   background-color: transparent;
   border:2px solid #fff;
 }
@@ -122,6 +167,23 @@ button:active {
 .right-panel-active .sign-in {
   transform: translateX(100%);
 }
+.acc-submit {
+  border-radius: 10px;
+  padding:6px 55px;
+  font-family: 'Secular one';
+  font-weight: 400;
+  font-size:18px;
+  background-color: #a00cae;
+  color:white;
+  margin:10px 0;
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(113, 113, 113, 0.3), 0 0 5px rgba(156, 156, 156, 0.3), 0 rgba(185, 185, 185, 0.3);
+}
+
+
+/*----------Overlay----------*/
+
+
 .overlay-container {
   position: absolute;
   top:0;
