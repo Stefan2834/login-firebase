@@ -16,8 +16,8 @@ export function AuthProvider({children}) {
     const [loading,setLoading] = useState(true);
     const [error, setError] = useState('');
     const [url, setUrl] = useState()
+    const [activeForm, setActiveForm] = useState(true)
     const navigate = useNavigate()
-    const [username, setUsername] = useState()
     
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -28,31 +28,20 @@ export function AuthProvider({children}) {
         return unsubscribe
     }, [])
     
-    async function writeUserData(email,password,username,userId) {
+    async function writeUserData(email,password,userId) {
         const reference = ref(db, 'users/' + userId);
         await set(reference, {
             email : email,
-            username : username,
             password : password,
         })
     }
-
-    function getDatabase () {
-        const nameRef = ref(db, 'users/' + currentUser.uid + '/username')
-            onValue(nameRef, (snapshot) => {
-                setUsername(snapshot.val());
-            })
-    }
-
-    
-
-    async function signup(email, password, username) {
+    async function signup(email, password) {
         return await createUserWithEmailAndPassword(auth, email, password)
         .then(info => {
-            writeUserData(email,password,username,info.user.uid)
+            writeUserData(email,password,info.user.uid)
             navigate('/')
         }).catch((err) => {
-            setError(err.message);
+            setError(err.code);
         });
     }
 
@@ -61,7 +50,7 @@ export function AuthProvider({children}) {
         .then(info => {
             navigate('/')
         }).catch((err) => {
-            setError(err.message);
+            setError(err.code);
         });
     }
 
@@ -79,9 +68,8 @@ export function AuthProvider({children}) {
         login,
         logOut,
         error,setError,
-        getDatabase,
         url,setUrl,
-        username
+        activeForm, setActiveForm,
     }
   return (
     <AuthContext.Provider value={value}>
