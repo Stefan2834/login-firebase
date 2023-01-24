@@ -51,15 +51,15 @@ export default function Login() {
 
                     <label class='acc-label'><img className='acc-svg' src={meSvg} alt='Img' />
                         <input ref={nameRef} className='acc-input' type='text'  placeholder=' ' required minLength={5} maxLength={16}/>
-                        <span className='place-holder'>Name</span>
+                        <span className='place-holder'>Name*</span>
                     </label>
                     <label class='acc-label'><img className='acc-svg' src={emailSvg} alt='Img' />
                         <input className='acc-input' type='email' placeholder=' ' required />
-                        <span className='place-holder'>Email</span>
+                        <span className='place-holder'>Email*</span>
                     </label>
                     <label class='acc-label'><img className='acc-svg' src={passSvg} alt='Img' />
                         <input className='acc-input' type={passView[0] ? 'text' : 'password'}  placeholder=' ' minLength={6} maxLength={20} required />
-                        <span className='place-holder'>Password</span>
+                        <span className='place-holder'>Password*</span>
                         <img className='acc-svg-eye' 
                             src={passView[0] ? eyeTrue : eyeFalse} 
                             alt='Img' onClick={() => {setPassView(c => [!c[0],c[1],c[2]])}}
@@ -67,7 +67,7 @@ export default function Login() {
                     </label>
                     <label class='acc-label'><img className='acc-svg' src={checkSvg} alt='Img' />
                         <input className='acc-input' type={passView[1] ? 'text' : 'password'}  placeholder=' ' minLength={6} maxLength={20} required />
-                        <span className='place-holder'>Confirm Password</span>
+                        <span className='place-holder'>Confirm Password*</span>
                         <img className='acc-svg-eye' 
                             src={passView[1] ? eyeTrue : eyeFalse} 
                             alt='Img' onClick={() => {setPassView(c => [c[0],!c[1],c[2]])}}
@@ -81,11 +81,11 @@ export default function Login() {
                 <div className='acc-form-title'>Sign In</div>
                     <label class='acc-label'><img className='acc-svg' src={emailSvg} alt='Img' />
                         <input className='acc-input' type='email' placeholder=' ' required />
-                        <span className='place-holder'>Email</span>
+                        <span className='place-holder'>Email*</span>
                     </label>
                     <label class='acc-label'><img className='acc-svg' src={passSvg} alt='Img' />
                         <input className='acc-input' type={passView[2] ? 'text' : 'password'}  placeholder=' ' minLength={6} maxLength={20} required />
-                        <span className='place-holder'>Password</span>
+                        <span className='place-holder'>Password*</span>
                         <img className='acc-svg-eye' 
                             src={passView[2] ? eyeTrue : eyeFalse} 
                             alt='Img' onClick={() => {setPassView(c => [c[0],c[1],!c[2]])}}
@@ -98,13 +98,13 @@ export default function Login() {
             <div className='overlay-container'>
                 <div className='overlay'>
                     <div className='overlay-left'>
-                        <h1>Hello Friend!</h1>
-                        <p>Already have an account?</p>
+                        <div className='overlay-title'>Hello Friend!</div>
+                        <div className='overlay-text'>Already have an account?</div>
                         <button className='acc-btn' onClick={() => {setActiveForm(false)}}>Sign in</button>
                     </div>
                     <div className='overlay-right'>
-                        <h1>Welcome Back!</h1>
-                        <p>You don't have an account?</p>
+                        <div className='overlay-title'>Welcome Back!</div>
+                        <div className='overlay-text'>You don't have an account?</div>
                         <button className='acc-btn' onClick={() => {setActiveForm(true)}}>Sign up</button>
                     </div>
                 </div>
