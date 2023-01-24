@@ -2,10 +2,177 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: aliceblue;
+  height: 100vh;
 }
+.container {
+  position: relative;
+  width:768px;
+  max-width: 100%;
+  min-height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+
+}
+.sign-in, .sign-up {
+  position: absolute;
+  left:0;
+  top:0;
+  height:100%;
+  transition: all 0.6s ease-in-out;
+}
+.sign-up {
+  width:50%;
+  opacity: 0;
+  z-index:1;
+}
+.sign-in {
+  width:50%;
+  z-index:2;
+}
+form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding:0 50px;
+  height:100%;
+  text-align: center;
+}
+h1 {
+  margin:0;
+}
+p {
+  font-size:14px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin:15px 0 20px;
+}
+input {
+  background-color: #eee;
+  padding:12px 15px;
+  margin:8px 15px;
+  width:100%;
+  border-radius: 5px;
+  border:none;
+  outline: none;
+}
+input::placeholder {
+  transition: 300ms ease;
+}
+input:focus::placeholder {
+  transform: translateY(-20px);
+  font-size:14px;
+}
+input:active {
+  border:1px solid aqua
+}
+input:invalid {
+  animation: wrong 300ms ease-in-out;
+  border:1px solid rgb(245, 46, 46);
+}
+@keyframes wrong {
+  0% {transform: translateX(0)}
+  33% {transform: translateX(-10px)}
+  66% {transform: translateX(10px)}
+  100% {transform: translateX(0);}
+}
+a {
+  color:#333;
+  margin:15px 0;
+  text-decoration: none;
+  font-size:14px;
+}
+button {
+  color:#fff;
+  background-color: #ff4b2b;
+  font-size:12px;
+  padding: 12px 55px;
+  margin:20px;
+  border-radius: 20px;
+  border:1px solid #ff4b2b;
+  outline:none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease;
+  cursor: pointer;
+}
+button:active {
+  transform: scale(0.9);
+}
+.signIn, .signUp {
+  background-color: transparent;
+  border:2px solid #fff;
+}
+.right-panel-active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+}
+.right-panel-active .sign-in {
+  transform: translateX(100%);
+}
+.overlay-container {
+  position: absolute;
+  top:0;
+  left:50%;
+  width:50%;
+  height:100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index:50;
+}
+.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+.overlay {
+  position: relative;
+  color:#fff;
+  background-color: #ff416c;
+  left:-100%;
+  height:100%;
+  width:200%;
+  background: linear-gradient(to right, #ff4b28, #ff22bc);
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+.overlay-left, .overlay-right {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top:0;
+  height:100%;
+  width:50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out
+}
+.overlay-left {
+  transform: translateX(-20%);
+}
+.overlay-right {
+  right:0;
+  transform: translateX(0);
+}
+.right-panel-active .overlay-left {
+  transform: translateX(0);
+} 
+.right-panel-active .overlay-right {
+  transform: translateX(20%);
+} 

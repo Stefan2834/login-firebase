@@ -103,13 +103,13 @@ const Dashboard = () => {
                     <div className='mr-4 cursor-pointer h-6 text-white w-auto' onClick={handleLogout}>Log out</div>
                 </div>
             </div>
-            {/* <div className="w-screen h-80 flex-col relative top-14 flex items-center justify-start">
+            <div className="w-screen h-80 flex-col relative top-14 flex items-center justify-start">
                 <div className='h-auto w-96 text-white mb-5 bg-emerald-500 p-2'>
                     <span className='text-xl'>Salut </span>  
                     <span className='text-md'>email</span>
                     <div className='text-gray-700 text-lg'>Salut all</div>
                 </div>
-            </div> */}
+            </div>
             </>
         )}    
         </>

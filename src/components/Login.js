@@ -7,13 +7,11 @@ export default function Login() {
   const passwordRef = useRef();
   const { login,error, setError } = useAuth();
   const [loading, setLoading] =  useState(false);
+  const [activeForm, setActiveForm] = useState(false)
 
   useEffect(() => {
     setError()
   }, [])
-  
-
-  
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -31,23 +29,49 @@ export default function Login() {
   return (
 
     <>
-    <div className='flex justify-center items-center w-screen h-screen'>
-        <div className='rounded-lg p-4 flex justify-around flex-col items-center bg-emerald-500'>
-            <p className='text-2xl font-medium'>Log in</p>
-            <form onSubmit={handleSubmit}
-            className="flex justify-around flex-col items-start m-6"
-            >
-                {error && (
-                   <div className='text-lg flex justify-start items-center text-white p-2 w-80 rounded-lg bg-red-500'>{error}</div>
-                )}
-                <label className='my-2 text-lg'>Email</label>
-                <input className='px-2 h-7 w-80 rounded-sm focus:outline-none' type="email" ref={emailRef} required />
-                <label className='my-2 text-lg'>Password</label>
-                <input className='px-2 h-7 w-80 rounded-sm focus:outline-none' type="password" ref={passwordRef} required />
-                <button disabled={loading} className="self-center rounded-md py-1.5 px-3 my-4 bg-blue-600 text-white" type="submit">Log in</button>
+    <div className={activeForm ? 'container right-panel-active' : 'container'} >
+        <div class='sign-up'>
+            <form action='#'>
+                <h1>Create Account</h1>
+                <div class='social-container'>
+                    <Link to='#' className='social'><i className='fa-solid fa-facebook' /></Link>
+                    <Link to='#' className='social'><i className='fa-solid fa-facebook' /></Link>
+                    <Link to='#' className='social'><i className='fa-solid fa-facebook' /></Link>
+                </div>
+                <p>or use your account</p>
+                <input type='text' name='txt' placeholder='Name' required />
+                <input type='email' name='txt' placeholder='Email' required />
+                <input type='password' name='txt' placeholder='Password' required />
+                <button>Sign Up</button>
             </form>
-            <div className='text-center'>
-                Need an account?<Link className='text-white' to='/signup'>Sing up</Link>
+        </div>
+        <div class='sign-in'>
+            <form action='#'>
+                <h1>Connect</h1>
+                <div class='social-container'>
+                    <Link to='#' className='social'><i className='fa-solid fa-facebook' /></Link>
+                    <Link to='#' className='social'><i className='fa-solid fa-facebook' /></Link>
+                    <Link to='#' className='social'><i className='fa-solid fa-facebook' /></Link>
+                </div>
+                <input type='text' name='txt' placeholder='Name' required />
+                <input type='email' name='txt' placeholder='Email' required />
+                <input type='password' name='txt' placeholder='Password' required />
+                <Link to='#'>Forget your pass?</Link>
+                <button>Sign in</button>
+            </form>
+        </div>
+        <div className='overlay-container'>
+            <div className='overlay'>
+                <div className='overlay-left'>
+                    <h1>Welcome back</h1>
+                    <p>Blalalallaall</p>
+                    <button className='signIn' onClick={() => {setActiveForm(false)}}>Sign in</button>
+                </div>
+                <div className='overlay-right'>
+                    <h1>Hello</h1>
+                    <p>Blalalallaall</p>
+                    <button className='signUp' onClick={() => {setActiveForm(true)}}>Sign up</button>
+                </div>
             </div>
         </div>
     </div>
