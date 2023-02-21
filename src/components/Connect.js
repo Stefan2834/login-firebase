@@ -1,8 +1,9 @@
-import React, {useState, useRef } from 'react'
+import React, {useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import {Link} from 'react-router-dom'
 import passSvg from '../svg-icon/key.svg'
-import googleSvg from '../svg-icon/google.svg'
 import emailSvg from '../svg-icon/email-security.svg'
 import checkSvg from '../svg-icon/check.svg'
 import eyeTrue from '../svg-icon/eye-check.svg'
@@ -15,12 +16,13 @@ export default function Connect() {
   const logEmailRef = useRef()
   const logPassRef = useRef()
   const {
-    loginEmail,
-    signupEmail,
-    loginGoogle,
+    server,
     error,setError,
+    setCurrentUser,
     activeForm, setActiveForm
   } = useAuth();
+
+  const navigate = useNavigate();
   const [loading, setLoading] =  useState(false);
   const [passView, setPassView] = useState([false,false,false]);
   
@@ -33,20 +35,44 @@ export default function Connect() {
         try{
             setLoading(true)
             setError()
-            await signupEmail(signEmailRef.current.value, signPassRef.current.value)
-        } catch {
-            setError(`Failed to Signup`)
+            const response = await axios.post(`${server}/connect/signUp`, {
+                email: signEmailRef.current.value,
+                password: signPassRef.current.value,
+            });
+            if(response.data.user) {
+                console.log(response.data.user)
+                setCurrentUser(response.data.user)
+                navigate('/')
+            } else {
+                console.log(response.data.message)
+                setError(response.data.message)
+            }
+        } catch (err) {
+            setError(`Failed to Signup: ${err}`)
         }
+        setLoading(false);
     }
   }
   async function handleLogIn(e) {
     e.preventDefault()
     try {
         setLoading(true)
-        setError()
-        await loginEmail(logEmailRef.current.value, logPassRef.current.value)
-    } catch {
-        setError('Failed to Login');
+        setError('Loading...')
+        const response = await axios.post(`${server}/connect/login`, {
+                email: logEmailRef.current.value,
+                password: logPassRef.current.value,
+            });
+            if(response.data.success === true) {
+                console.log(response.data.user.user);
+                setCurrentUser(response.data.user.user)
+                navigate('/')
+                setError()
+            } else {
+                setError(response.data.message)
+            }
+    } catch (err) {
+        setError(err.message);
+        console.error(err.message);
     }
     setLoading(false)
   }
@@ -54,7 +80,7 @@ export default function Connect() {
 
     <div className='acc-main'>
         <div className={activeForm ? 'container right-panel-active' : 'container'} >
-            <div class='sign-up'>
+            <div className='sign-up'>
                 <form className='acc-form' onSubmit={handleSignUp}>
                     <div className='acc-form-title'>Create an account</div>
 
@@ -62,7 +88,7 @@ export default function Connect() {
                         <input ref={signEmailRef} className='acc-input' type='email' placeholder=' ' required />
                         <span className='place-holder'>Email*</span>
                     </label>
-                    <label class='acc-label'><img className='acc-svg' src={passSvg} alt='Img' />
+                    <label className='acc-label'><img className='acc-svg' src={passSvg} alt='Img' />
                         <input ref={signPassRef} className='acc-input' type={passView[0] ? 'text' : 'password'}  placeholder=' ' minLength={6} maxLength={20} required />
                         <span className='place-holder'>Password*</span>
                         <img className='acc-svg-eye' 
@@ -87,11 +113,6 @@ export default function Connect() {
             <div class='sign-in'>
                 <form className='acc-form' onSubmit={handleLogIn}>
                 <div className='acc-form-title'>Sign In</div>
-                    <div>
-                        <img src={googleSvg} alt='GoogleImg' className='acc-svg-sign' onClick={() => loginGoogle()} />
-                    </div>
-                    <div className='acc-form-text'>or use your email</div>
-
                     <label class='acc-label'><img className='acc-svg' src={emailSvg} alt='Img' />
                         <input ref={logEmailRef} className='acc-input' type='email' placeholder=' ' required />
                         <span className='place-holder'>Email*</span>
