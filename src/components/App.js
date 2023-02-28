@@ -1,11 +1,18 @@
 import '../index.css';
 import {AuthProvider} from '../contexts/AuthContext';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import PrivateRoute from './PrivateRoute';
-import Dashboard from './Dashboard'
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
+// import PrivateRoute from './PrivateRoute';
+// import Dashboard from './Dashboard'
 import Connect from './Connect';
 import Main from './Main';
 import Navbar from './Important/Navbar';
+
+const Layout = () => (
+  <>
+  <Navbar />
+  <Outlet />
+  </>
+)
 
 function App() {
   return (
@@ -17,8 +24,9 @@ function App() {
             </PrivateRoute> */}
             <Route path='/' index element={<Connect />} />
             <Route path='/connect' element={<Connect />} />
-            <Route path='/main' element={<Main />} />
-            <Route path='/navbar' element={<Navbar />} />
+            <Route path='/main' element={<Layout />} >
+              <Route exact index element={<Main />} />
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
