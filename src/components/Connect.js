@@ -108,6 +108,7 @@ export default function Connect() {
                         <div className=' text-red-600'>{error}</div>
                     )}
                     <button disabled={loading} type='submit' className='acc-submit'>Sign Up</button>
+                    <div className='acc-submit'><Link to='/main'>Ramai Anonim</Link></div>
                 </form>
             </div>
             <div class='sign-in'>

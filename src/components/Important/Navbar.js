@@ -1,35 +1,40 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import product from '../../clothing/barbati-shoes.jpg'
+import { NavLink,Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
+import axios from 'axios'
+
 
 export default function Navbar() {
-  const currentUser = true;
-  const cart = [{
-    nume:'Sosete din bumbac',
-    pret:99.99,
-    numar:1,
-    poza:product
-  }, {
-    nume:'Sosete din bumbac',
-    pret:99.99,
-    numar:1,
-    poza:product
-  }];
-  const favorite= [{
-    nume:'Sosete din bumbac',
-    pret:99.99,
-    numar:1,
-    poza:product
-  }, {
-    nume:'Sosete din bumbac',
-    pret:99.99,
-    numar:1,
-    poza:product
-  }]
+  const {
+    currentUser,
+    favorite,
+    cart,
+    setError,
+    setCurrentUser,
+    setActiveForm,
+    server
+  } = useAuth()
+  const navigate = useNavigate()
+  
+  async function handleLogout() {
+    try {
+        setError()
+        setActiveForm(false)
+        const response = await axios.post(`${server}/connect/logout`)
+        console.log(response.data);
+        if(response.data.success) {
+            navigate('/connect');
+            setCurrentUser()
+        }
+    } catch {
+        setError('Failed to log out')
+    }
+  }
+
   return (
     <div className='navbar'>
       <div className='nav-left'>
-        <div className='nav-logo'>Fashionista</div>
+        <div className='nav-logo'><Link to='/main'>Fashionista</Link></div>
         <div className='nav-left-btn'>
           <div className='nav-left-type'>Barbati</div>
           <div className='nav-drop'>
@@ -75,24 +80,37 @@ export default function Navbar() {
         <div className='nav-icon'>
           <div className='nav-drop-right nav-spec'>
           <div className='nav-fav-title'>Favorite</div>
-          {currentUser ? (
+         {currentUser ? (
               !favorite ? (
-                <div className='nav-not'>Nu ai nimic la favorite!</div>
+                <div className='nav-not'>Nu ai nimic in cos!</div>
               ) : (
-                favorite.map(product => {
-                  return (
-                    <NavLink to='/'><div className='nav-fav'>
-                      <img src={product.poza} alt='Poza' className='nav-fav-photo'/>
-                      <div className='nav-fav-nume'>{product.nume}</div>
-                      <div className='nav-fav-flex'>
-                        <div className='nav-fav-price'>{product.pret}RON</div>
+                <>
+                {favorite.map((product,index) => {
+                  if(index < 4) {
+                    return (
+                      <Link to='/'>
+                      <div className={product.sex === 'man' ? (
+                          'nav-fav nav-fav-man'
+                        ) : (
+                          'nav-fav nav-fav-woman'
+                        )}>
+                        <img src={product.poza} alt='Poza' className='nav-fav-photo'/>
+                        <Link to='/'>
+                        </Link>
+                        <div className='nav-fav-flex'>
+                          <div className='nav-fav-nume'>{product.nume}</div>
+                          <div className='nav-fav-price'>{product.pret}RON</div>
+                        </div>
                       </div>
-                    </div></NavLink>
-                  )
-                })
-              )
+                      </Link>
+                    )
+                  }
+                })}
+                <div className='nav-tot'><Link to='/fav'>Vezi Favoritele</Link></div>
+                </>
+                )
             ) : (
-              <div className='nav-connect'><NavLink to='/'>Nu esti conectat!</NavLink></div>
+              <div className='nav-connect'><NavLink to='/connect'>Conecteaza-te</NavLink></div>
             )}
           </div>
         </div>
@@ -103,39 +121,60 @@ export default function Navbar() {
               !cart ? (
                 <div className='nav-not'>Nu ai nimic in cos!</div>
               ) : (
-                cart.map(product => {
-                  return (
-                    <NavLink to='/'><div className='nav-fav'>
-                      <img src={product.poza} alt='Poza' className='nav-fav-photo'/>
-                      <div className='nav-fav-nume'>{product.nume}</div>
-                      <div className='nav-fav-flex'>
-                        <div className='nav-fav-price'>{product.pret}RON</div>
-                        <div className='nav-fav-nr'>X{product.numar}</div>
+                <>
+                {cart.map((product,index) => {
+                  if(index < 4) {
+                    return (
+                      <Link to='/'>
+                      <div className={product.sex === 'man' ? (
+                          'nav-fav nav-fav-man'
+                        ) : (
+                          'nav-fav nav-fav-woman'
+                        )}>
+                        <img src={product.poza} alt='Poza' className='nav-fav-photo'/>
+                        <Link to='/'>
+                        </Link>
+                        <div className='nav-fav-flex'>
+                          <div className='nav-fav-nume'>{product.nume}</div>
+                          <div className='nav-fav-size'>Marime: {product.size}</div>
+                          <div className='nav-fav-nr'>Numar: {product.numar}</div>
+                          <div className='nav-fav-price'>{product.pret}RON</div>
+                        </div>
                       </div>
-                    </div></NavLink>
-                  )
-                })
+                      </Link>
+                    )
+                  }
+                })}
+                <div className='nav-tot'><Link to='/cart'>Vezi Cosul</Link></div>
+                </>
               )
             ) : (
-              <div className='nav-connect'><NavLink to='/'>Nu esti conectat!</NavLink></div>
-            )}
-          </div>
-        </div>
-        <div className='nav-icon'>
-          <div className='nav-drop-right nav-spec'>
-          {currentUser ? (
-              <>
-              <div className='nav-profile-email'>iosifs617@gmail.com</div>
-              <div className='nav-profile-more'><NavLink to='/'>Profilul meu</NavLink></div>
-              </>
-            ) : (
-              <div className='nav-connect'><NavLink to='/'>Nu esti conectat!</NavLink></div>
+              <div className='nav-connect'><NavLink to='/connect'>Conecteaza-te</NavLink></div>
             )}
           </div>
         </div>
         <div className='nav-icon'>
           <div className='nav-drop-right'>
-            Setari
+          <div className='nav-fav-title'>Profil</div>
+          {currentUser ? (
+              <>
+              <div className='nav-profile-email'>{currentUser.email}</div>
+              <div className='nav-profile-more'><NavLink to='/profile'>Profilul meu</NavLink></div>
+              </>
+            ) : (
+              <div className='nav-connect'><NavLink to='/connect'>Conecteaza-te</NavLink></div>
+            )}
+          </div>
+        </div>
+        <div className='nav-icon'>
+          <div className='nav-drop-right nav-drop-set'>
+          <div className='nav-fav-title'>Optiuni</div>
+          {currentUser ? (
+            <div className='nav-set' onClick={handleLogout}>Deconectare</div>
+          ) : (
+            <div className='nav-set'><Link to='/connect'>Conectare</Link></div>
+          )}
+            <div className='nav-set'><Link to='/'>Setari</Link></div>
           </div>
         </div>
       </div>
