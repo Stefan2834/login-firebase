@@ -516,10 +516,6 @@ button.main-acc-btn {
 .main-woman-cloth:hover .main-woman-cloth-more {
   opacity: 1;
 }
-
-
-/*----------NavBar----------*/
-
 .navbar {
   width:100vw;
   height:50px;
@@ -637,16 +633,16 @@ button.main-acc-btn {
   background-size: 35px 35px;
 }
 .nav-icon:nth-child(1) {
-  background-image: url(./components/Important/important-svg/like.svg);
+  background-image: url(./components/Main/svg/like.svg);
 }
 .nav-icon:nth-child(2) {
-  background-image: url(./components/Important/important-svg/shopping-cart-one.svg);
+  background-image: url(./components/Main/svg/shopping-cart-one.svg);
 }
 .nav-icon:nth-child(3) {
-  background-image: url(./components/Important/important-svg/people.svg);
+  background-image: url(./components/Main/svg/people.svg);
 }
 .nav-icon:nth-child(4) {
-  background-image: url(./components/Important/important-svg/setting-two.svg);
+  background-image: url(./components/Main/svg/setting-two.svg);
 }
 .nav-drop-right {
   position: absolute;
@@ -696,6 +692,7 @@ button.main-acc-btn {
 }
 .nav-spec {
   width:300px;
+  cursor: pointer;
 }
 .nav-profile-more {
   text-decoration: underline;

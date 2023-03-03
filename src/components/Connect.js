@@ -8,6 +8,7 @@ import emailSvg from '../svg-icon/email-security.svg'
 import checkSvg from '../svg-icon/check.svg'
 import eyeTrue from '../svg-icon/eye-check.svg'
 import eyeFalse from '../svg-icon/eye-off.svg'
+import { useDefault } from '../contexts/DefaultContext';
 
 export default function Connect() {
   const signEmailRef = useRef();
@@ -17,10 +18,12 @@ export default function Connect() {
   const logPassRef = useRef()
   const {
     server,
-    error,setError,
     setCurrentUser,
-    activeForm, setActiveForm
   } = useAuth();
+  const {
+    error,setError,
+    activeForm, setActiveForm
+  } = useDefault() 
 
   const navigate = useNavigate();
   const [loading, setLoading] =  useState(false);

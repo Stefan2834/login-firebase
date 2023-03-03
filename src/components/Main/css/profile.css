@@ -1,0 +1,114 @@
+:root {
+  --black:#0b0b0b;
+  --dark-principal:#0b0b0b;
+  --color:white;
+  --color-second:#eeeeee;
+  --color-oposite:#0b0b0b;
+  --gradient: linear-gradient(to right, #d604cf, #9822ff);
+  --first:#e684ae;
+  --seond: #79cbca;
+  --third: #77a1d3
+}
+.prof {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width:100vw;
+    margin-top:50px;
+}
+
+.prof-center, .prof-left, .prof-right {
+    height: 100vh;
+}
+.prof-left, .prof-right {
+    background-color: #eee;
+    width:30vw;
+}
+.prof-center {
+    width:40vw;
+    padding:30px 50px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    color:var(--color-oposite);
+    font-size:18px;
+    font-family:'Noto sans serif', sans-serif;
+    font-weight: 600;
+}
+.prof-photo {
+    width:150px;
+    height:150px;
+    background-position: center;
+    background-size: 100px 100px;
+    background-color: var(--black);
+    border-radius: 50%;
+    position: relative;
+    background-repeat: no-repeat;
+}
+.prof-photo-save {
+    background-image: url(../svg/people.svg);
+}
+.prof-photo-edit {
+    background-image: url(../svg/edit-name.svg);
+}
+.prof-txt {
+    margin:8px 0;
+    width:100%;
+    text-align: center;
+}
+.prof-det {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    width:90%;
+    text-align: center;
+}
+.prof-det-txt {
+    width:100%;
+    text-align: left;
+}
+.prof-save {
+    padding: 10px 16px;
+    color:var(--color);
+    cursor: pointer;
+    background-color: var(--color-oposite);
+}
+.prof-back {
+    padding:10px 16px;
+    color:var(--color-oposite);
+    cursor: pointer;
+    border:1px solid var(--color-oposite)
+}
+.prof-input {
+    width:100%;
+    outline: 1px solid var(--dark-principal);
+}
+.prof-input:focus {
+    background-color: #eee;
+}
+.prof-btn-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width:100%;
+    margin-top:10px;
+}
+.prof-form-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width:100%;
+}
+.prof-radio:checked ~ .prof-label{
+    background:linear-gradient(to left, var(--first), var(--second))
+}
+.prof-radio {
+    display: none;
+}
+.prof-label {
+    padding:5px 10px;
+    margin:0 5px;
+}

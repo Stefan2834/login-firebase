@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink,Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import axios from 'axios'
+import { useDefault } from '../../contexts/DefaultContext'
 
 
 export default function Navbar() {
@@ -9,11 +10,10 @@ export default function Navbar() {
     currentUser,
     favorite,
     cart,
-    setError,
     setCurrentUser,
-    setActiveForm,
     server
   } = useAuth()
+  const {setError,setActiveForm} = useDefault()
   const navigate = useNavigate()
   
   async function handleLogout() {
@@ -104,9 +104,9 @@ export default function Navbar() {
                       </div>
                       </Link>
                     )
-                  }
+                  } else return (<></>)
                 })}
-                <div className='nav-tot'><Link to='/fav'>Vezi Favoritele</Link></div>
+                <div className='nav-tot'><Link to='/main/fav'>Vezi Favoritele</Link></div>
                 </>
                 )
             ) : (
@@ -143,9 +143,9 @@ export default function Navbar() {
                       </div>
                       </Link>
                     )
-                  }
+                  } else return (<></>)
                 })}
-                <div className='nav-tot'><Link to='/cart'>Vezi Cosul</Link></div>
+                <div className='nav-tot'><Link to='/main/cart'>Vezi Cosul</Link></div>
                 </>
               )
             ) : (
@@ -159,7 +159,7 @@ export default function Navbar() {
           {currentUser ? (
               <>
               <div className='nav-profile-email'>{currentUser.email}</div>
-              <div className='nav-profile-more'><NavLink to='/profile'>Profilul meu</NavLink></div>
+              <div className='nav-profile-more'><NavLink to='/main/profile'>Profilul meu</NavLink></div>
               </>
             ) : (
               <div className='nav-connect'><NavLink to='/connect'>Conecteaza-te</NavLink></div>
@@ -174,7 +174,7 @@ export default function Navbar() {
           ) : (
             <div className='nav-set'><Link to='/connect'>Conectare</Link></div>
           )}
-            <div className='nav-set'><Link to='/'>Setari</Link></div>
+            <div className='nav-set'><Link to='/main/settings'>Setari</Link></div>
           </div>
         </div>
       </div>
