@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Profile () {
     const {
         currentUser,
-        det, setDet
+        det, setDet,server,
     } = useAuth()
     const [infoChange, setInfoChange] = useState(false)
-    const [preDet, setPreDet] = useState({
-        info:det.info,
-        tel:det.tel,
-        email:det.email,
-    })
-
+    const [preDet, setPreDet] = useState({})
+    const [loading,setLoading] = useState(true);
     const changeInfo = () => {
         setInfoChange(true)
     }
-    const saveInfo = () => {
-        setDet({
-            info:preDet.info,
+    const saveInfo = e => {
+        e.preventDefault()
+        setLoading(true)
+        axios.post(`${server}/user/infoUpdate`, {
+            uid: currentUser.uid,
+            det:preDet
+        })
+        .then(info => {setDet({info:preDet.info,
             tel:preDet.tel,
             email:preDet.email
-        });
+        });console.log(info.data)})
+        .catch(err => {setPreDet({info:det.info,
+            tel:det.info,
+            email:det.email
+        }); console.error(err)})
         setInfoChange(false);
+        setLoading(false)
     }
     const backInfo = () => {
         setPreDet({
@@ -33,18 +40,25 @@ export default function Profile () {
         })
         setInfoChange(false);
     }
-    
+    useEffect(() => {
+            axios.post(`${server}/user/info`, {
+                uid: currentUser.uid
+            })
+            .then(info => {setDet(info.data.det); setPreDet(info.data.det)})
+            .catch(err => console.error(err.error))
+            setLoading(false)
+    }, [])
+
     return (
         <div className="prof">
-            <div className="prof-left"></div>
-            {currentUser ? (
-                <div className="prof-center">
-                {!infoChange && det ? (
-                <>
-                <div className="prof-photo prof-photo-save"></div>
-                <div className="prof-txt">Email: {currentUser.email}</div>
-                <div className="prof-txt">Detali cont:</div>
-                <div className="prof-det">
+            {loading && (
+                <div className="prof-loading">
+                    <div className="loading-spin" />
+                </div>
+            )}
+            <div className="prof-left">
+                <div className={infoChange ? 'prof-det prof-det-slider' : 'prof-det'}>
+                <div className="prof-left-info">
                     <div className="prof-txt">Informatii adresa:<br />
                         <div className="prof-det-txt">{det.info !== '' ? det.info : 'Adresa nesetata'}</div>
                     </div>
@@ -52,47 +66,43 @@ export default function Profile () {
                         <div className="prof-det-txt">{det.tel !== '' ? det.tel : 'Numar de telefon nesetat'}</div>
                     </div>
                     <div className="prof-txt">Email de contact:<br />
-                        <div className="prof-det-txt">{det.email !== '' ? det.email : `Emailul default: ${currentUser.email}`}</div>
+                        <div className="prof-det-txt">{det.email !== '' ? det.email : `${currentUser.email}`}</div>
                     </div>
                     <div className="prof-save" onClick={changeInfo}>Editeaza</div>
+                </div> 
+                <form className="prof-left-save" onSubmit={saveInfo}>
+                <div className="prof-txt">
+                    Informatii adresa:
+                    <input type='text' value={preDet.info}
+                    onChange={e => setPreDet({ ...preDet, info: e.target.value})}
+                    className='prof-input'
+                    />
                 </div>
-                </> 
-                ) : (
-                <>
-                <div className="prof-photo prof-photo-edit"></div>
-                <div className="prof-txt">Email: {currentUser.email}</div>
-                <div className="prof-txt">Detali cont:</div>
-                <div className="prof-det">
-                    <div className="prof-txt">
-                        Informatii adresa:
-                        <input type='text' value={preDet.info}
-                        onChange={e => setPreDet({ ...preDet, info: e.target.value})}
-                        className='prof-input' required
-                        />
-                    </div>
-                    <div className="prof-txt">
-                        Numar de telefon:
-                        <input type='number' value={preDet.tel}
-                        onChange={e => setPreDet({ ...preDet, tel: e.target.value})}
-                        className='prof-input' required
-                        />
-                    </div>
-                    <div className="prof-txt">
-                        Email de contact:
-                        <input type='email' value={preDet.email}
-                        onChange={e => setPreDet({ ...preDet, email: e.target.value})}
-                        className='prof-input' required
-                        />
-                    </div>
-                    <div className="prof-btn-flex">
-                        <div className="prof-save" onClick={saveInfo}>Salveaza</div>
-                        <div className="prof-back" onClick={backInfo}>Inapoi</div>
-                    </div>
+                <div className="prof-txt">
+                    Numar de telefon:
+                    <input type='number' value={preDet.tel}
+                    onChange={e => setPreDet({ ...preDet, tel: e.target.value})}
+                    className='prof-input'
+                    />
                 </div>
-                    </>
-                )}
+                <div className="prof-txt">
+                    Email de contact:
+                    <input type='email' value={preDet.email}
+                    onChange={e => setPreDet({ ...preDet, email: e.target.value})}
+                    className='prof-input' required
+                    />
+                </div>
+                <div className="prof-btn-flex">
+                    <input type='submit' className="prof-save" value='Salveaza' />
+                    <div className="prof-back" onClick={backInfo}>Inapoi</div>
+                </div>
+                </form>
+                </div>
             </div>
-            ) : (<div className="prof-center">Nu esti conectat</div>)}
+                <div className="prof-center">
+                    <div className="prof-photo prof-photo-save"></div>
+                    <div className="prof-txt text-center">Email: {currentUser.email}</div>
+                </div>
             <div className="prof-right"></div>
         </div>
     )

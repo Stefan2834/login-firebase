@@ -10,6 +10,7 @@ import Main from './Main/Main';
 import Navbar from './Main/Navbar';
 import Profile from './Main/Profile'
 import Clothing from './Main/Layout/Clothing'
+import PrivateRoute from './PrivateRoute';
 
 const Layout = () => (
   <>
@@ -38,7 +39,7 @@ function App() {
             <Route path='/connect' element={<Connect />} />
             <Route path='/main' element={<Layout />} >
               <Route exact index element={<Main />} />
-              <Route path='profile' index element={<Profile />} />
+              <Route path='profile' element={<PrivateRoute element={Profile} />} />
               <Route path='man'>
                 <Route path=':idMan' exact index element={<Clothing />} />
               </Route>

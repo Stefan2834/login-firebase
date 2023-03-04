@@ -42,10 +42,20 @@ export default function Connect() {
                 email: signEmailRef.current.value,
                 password: signPassRef.current.value,
             });
-            if(response.data.user) {
-                console.log(response.data.user)
-                setCurrentUser(response.data.user)
-                navigate('/')
+            if(response.data.success) {
+                console.log(response.data.user.user)
+                await setCurrentUser(response.data.user.user)
+                const writeData = await axios.post(`${server}/connect/write`, {
+                    uid: response.data.user.user.uid,
+                    email: signEmailRef.current.value,
+                    password: signPassRef.current.value,
+                })
+                if(writeData.data.success) {
+                    navigate('/')
+                } else {
+                    console.log(writeData.data.message)
+                    setError(response.data.message)
+                }
             } else {
                 console.log(response.data.message)
                 setError(response.data.message)
@@ -73,9 +83,9 @@ export default function Connect() {
             } else {
                 setError(response.data.message)
             }
-    } catch (err) {
-        setError(err.message);
-        console.error(err.message);
+        } catch (err) {
+            console.error(err.message);
+            setError(err.message);
     }
     setLoading(false)
   }

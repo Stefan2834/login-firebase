@@ -12,17 +12,32 @@
 .prof {
     display: flex;
     align-items: stretch;
-    justify-content: center;
+    justify-content: flex-start;
     width:100vw;
     margin-top:50px;
+    position: relative;
 }
-
+.prof-loading {
+    width:100%;
+    height:100%;
+    z-index:1;
+    background-color: #eee;
+    opacity: 0.5;
+    position: absolute;
+}
 .prof-center, .prof-left, .prof-right {
     height: 100vh;
 }
 .prof-left, .prof-right {
     background-color: #eee;
     width:30vw;
+}
+.prof-left {
+    font-size:18px;
+    font-family:'Noto sans serif', sans-serif;
+    font-weight: 600;
+    padding:50px;
+    overflow: hidden;
 }
 .prof-center {
     width:40vw;
@@ -56,19 +71,22 @@
 .prof-txt {
     margin:8px 0;
     width:100%;
-    text-align: center;
+    overflow: visible;
 }
 .prof-det {
     display: flex;
     align-items:center;
-    justify-content: center;
-    flex-direction: column;
-    width:90%;
-    text-align: center;
+    justify-content: space-between;
+    width:calc(200% + 200px);
+    position: relative;
+    transition: 400ms ease;
 }
 .prof-det-txt {
     width:100%;
     text-align: left;
+    font-weight: 500;
+    font-size:16px;
+    font-family: 'Poppins',sans-serif;
 }
 .prof-save {
     padding: 10px 16px;
@@ -84,10 +102,25 @@
 }
 .prof-input {
     width:100%;
-    outline: 1px solid var(--dark-principal);
+    font-weight: 500;
+    font-size:16px;
+    padding-left: 5px;
+    background-color: #ddd;
+    font-family: 'Poppins',sans-serif;
+    /* outline: 1px solid var(--dark-principal); */
+    outline:none;
+}
+.prof-input::before {
+    content: '';
+    width:100px;
+    position: absolute;
+    height:100px;
+    background-color: red;
+    left:-10px;
+    bottom:-10px;
 }
 .prof-input:focus {
-    background-color: #eee;
+    background-color: #fff;
 }
 .prof-btn-flex {
     display: flex;
@@ -102,13 +135,24 @@
     justify-content: space-evenly;
     width:100%;
 }
-.prof-radio:checked ~ .prof-label{
-    background:linear-gradient(to left, var(--first), var(--second))
-}
-.prof-radio {
-    display: none;
-}
 .prof-label {
     padding:5px 10px;
     margin:0 5px;
+}
+.prof-line {
+    width:70%;
+    background-color: var(--color-second);
+    opacity: 0.5;
+    height:1px;
+    margin:0 3px;
+}
+.prof-left-info, .prof-left-save {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    width:calc(50% - 100px);
+}
+.prof-det-slider {
+    transform: translate(calc(-50% - 100px));
 }
