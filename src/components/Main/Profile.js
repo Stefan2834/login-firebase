@@ -10,6 +10,7 @@ export default function Profile () {
     } = useAuth()
     const [infoChange, setInfoChange] = useState(false)
     const [preDet, setPreDet] = useState({})
+    const [name, setName] = useState('')
     const [loading,setLoading] = useState(true);
     const changeInfo = () => {
         setInfoChange(true)
@@ -41,12 +42,12 @@ export default function Profile () {
         setInfoChange(false);
     }
     useEffect(() => {
-            axios.post(`${server}/user/info`, {
-                uid: currentUser.uid
-            })
-            .then(info => {setDet(info.data.det); setPreDet(info.data.det)})
-            .catch(err => console.error(err.error))
-            setLoading(false)
+        axios.post(`${server}/user/info`, {
+            uid: currentUser.uid
+        })
+        .then(info => {setDet(info.data.det); setPreDet(info.data.det); setName(info.data.name)})
+        .catch(err => console.error(err.error))
+        setLoading(false)
     }, [])
 
     return (
@@ -56,17 +57,26 @@ export default function Profile () {
                     <div className="loading-spin" />
                 </div>
             )}
-            <div className="prof-left">
-                <div className={infoChange ? 'prof-det prof-det-slider' : 'prof-det'}>
+            <div className="prof-left"></div>
+                <div className="prof-center">
+                    <div className="prof-photo prof-photo-save"></div>
+                    <div className="prof-txt text-center">Salut, {name}!</div>
+                    <div className={infoChange ? 'prof-det prof-det-slider' : 'prof-det'}>
                 <div className="prof-left-info">
                     <div className="prof-txt">Informatii adresa:<br />
-                        <div className="prof-det-txt">{det.info !== '' ? det.info : 'Adresa nesetata'}</div>
+                        <div className="prof-det-txt">
+                            {det.info !== '' ? det.info : (<div className="prof-noset">Adresa nesetata</div>)}
+                        </div>
                     </div>
                     <div className="prof-txt">Numar de telefon:<br />
-                        <div className="prof-det-txt">{det.tel !== '' ? det.tel : 'Numar de telefon nesetat'}</div>
+                        <div className="prof-det-txt">
+                            {det.tel !== '' ? det.tel : (<div className="prof-noset">Numar de telefon nesetat</div>)}
+                        </div>
                     </div>
                     <div className="prof-txt">Email de contact:<br />
-                        <div className="prof-det-txt">{det.email !== '' ? det.email : `${currentUser.email}`}</div>
+                        <div className="prof-det-txt">
+                            {det.email !== '' ? det.email : `${currentUser.email}`}
+                        </div>
                     </div>
                     <div className="prof-save" onClick={changeInfo}>Editeaza</div>
                 </div> 
@@ -98,10 +108,6 @@ export default function Profile () {
                 </div>
                 </form>
                 </div>
-            </div>
-                <div className="prof-center">
-                    <div className="prof-photo prof-photo-save"></div>
-                    <div className="prof-txt text-center">Email: {currentUser.email}</div>
                 </div>
             <div className="prof-right"></div>
         </div>

@@ -61,10 +61,11 @@ router.post('/logout', (req,res,next) => {
 })
 
 router.post('/write', async (req,res,next) => {
-  const { uid, password, email } = req.body;
+  const { uid, password, email, name } = req.body;
   try {
     const ref = db.ref('/users/' + uid + '/');
-    await ref.set({email:email, password: password, 
+    await ref.set({email:email, password: password,
+      name:name, 
       det:{info:'', tel:'', email:email}
     });
     res.json({success: true})

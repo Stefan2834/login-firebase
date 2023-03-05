@@ -8,10 +8,12 @@ import emailSvg from '../svg-icon/email-security.svg'
 import checkSvg from '../svg-icon/check.svg'
 import eyeTrue from '../svg-icon/eye-check.svg'
 import eyeFalse from '../svg-icon/eye-off.svg'
+import nameSvg from '../svg-icon/me.svg'
 import { useDefault } from '../contexts/DefaultContext';
 
 export default function Connect() {
   const signEmailRef = useRef();
+  const signNameRef = useRef();
   const signPassRef = useRef();
   const signPassConfirmRef = useRef()
   const logEmailRef = useRef()
@@ -49,6 +51,7 @@ export default function Connect() {
                     uid: response.data.user.user.uid,
                     email: signEmailRef.current.value,
                     password: signPassRef.current.value,
+                    name: signNameRef.current.value
                 })
                 if(writeData.data.success) {
                     navigate('/')
@@ -97,6 +100,10 @@ export default function Connect() {
                 <form className='acc-form' onSubmit={handleSignUp}>
                     <div className='acc-form-title'>Create an account</div>
 
+                    <label class='acc-label'><img className='acc-svg' src={nameSvg} alt='Img' />
+                        <input ref={signNameRef} className='acc-input' type='text' placeholder=' ' minLength={3} maxLength={16} required />
+                        <span className='place-holder'>Name*</span>
+                    </label>
                     <label class='acc-label'><img className='acc-svg' src={emailSvg} alt='Img' />
                         <input ref={signEmailRef} className='acc-input' type='email' placeholder=' ' required />
                         <span className='place-holder'>Email*</span>
@@ -121,7 +128,6 @@ export default function Connect() {
                         <div className=' text-red-600'>{error}</div>
                     )}
                     <button disabled={loading} type='submit' className='acc-submit'>Sign Up</button>
-                    <div className='acc-submit'><Link to='/main'>Ramai Anonim</Link></div>
                 </form>
             </div>
             <div class='sign-in'>

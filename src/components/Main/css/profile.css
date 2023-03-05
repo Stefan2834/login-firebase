@@ -1,6 +1,6 @@
 :root {
-  --black:#0b0b0b;
   --dark-principal:#0b0b0b;
+  --dark-opac:#0b0b0bc3;
   --color:white;
   --color-second:#eeeeee;
   --color-oposite:#0b0b0b;
@@ -29,7 +29,7 @@
     height: 100vh;
 }
 .prof-left, .prof-right {
-    background-color: #eee;
+    background-color: #ddd;
     width:30vw;
 }
 .prof-left {
@@ -37,30 +37,32 @@
     font-family:'Noto sans serif', sans-serif;
     font-weight: 600;
     padding:50px;
-    overflow: hidden;
 }
 .prof-center {
+    background-color: #eee;
     width:40vw;
     padding:30px 50px;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
     color:var(--color-oposite);
     font-size:18px;
+    overflow: hidden;
     font-family:'Noto sans serif', sans-serif;
     font-weight: 600;
+    box-shadow: 3px 3px 5px var(--dark-principal);
 }
 .prof-photo {
     width:150px;
     height:150px;
     background-position: center;
     background-size: 100px 100px;
-    background-color: var(--black);
+    background-color: var(--dark-principal);
     border-radius: 50%;
     position: relative;
     background-repeat: no-repeat;
+    box-shadow: 2px 2px 5px var(--color-oposite);
 }
 .prof-photo-save {
     background-image: url(../svg/people.svg);
@@ -80,6 +82,7 @@
     width:calc(200% + 200px);
     position: relative;
     transition: 400ms ease;
+    align-self: flex-start;
 }
 .prof-det-txt {
     width:100%;
@@ -92,35 +95,31 @@
     padding: 10px 16px;
     color:var(--color);
     cursor: pointer;
-    background-color: var(--color-oposite);
+    box-shadow: 3px 3px 7px var(--dark-opac);
+    margin:10px 0;
+    background-color: var(--dark-principal);
 }
 .prof-back {
     padding:10px 16px;
+    margin:10px 0;
     color:var(--color-oposite);
     cursor: pointer;
-    border:1px solid var(--color-oposite)
+    box-shadow: 3px 3px 7px var(--dark-principal);
+    border:1px solid var(--dark-opac)
 }
 .prof-input {
     width:100%;
     font-weight: 500;
     font-size:16px;
-    padding-left: 5px;
+    padding:3px 5px;
     background-color: #ddd;
     font-family: 'Poppins',sans-serif;
     /* outline: 1px solid var(--dark-principal); */
     outline:none;
-}
-.prof-input::before {
-    content: '';
-    width:100px;
-    position: absolute;
-    height:100px;
-    background-color: red;
-    left:-10px;
-    bottom:-10px;
+    caret-color: var(--color-oposite);
 }
 .prof-input:focus {
-    background-color: #fff;
+    background-color: #eee;
 }
 .prof-btn-flex {
     display: flex;
@@ -152,7 +151,14 @@
     justify-content: center;
     flex-direction: column;
     width:calc(50% - 100px);
+    background-color: white;
+    box-shadow: 3px 3px 7px 2px var(--dark-opac);
+    padding:10px 5px;
+    margin-top:20px;
 }
 .prof-det-slider {
     transform: translate(calc(-50% - 100px));
+}
+.prof-noset {
+    color:rgb(220, 38, 38);
 }
