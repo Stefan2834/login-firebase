@@ -65,8 +65,7 @@ router.post('/write', async (req,res,next) => {
   try {
     const ref = db.ref('/users/' + uid + '/');
     await ref.set({email:email, password: password,
-      name:name, 
-      det:{info:'', tel:'', email:email}
+      det:{info:'', tel:'', email:email, name:name}
     });
     res.json({success: true})
   } catch (err) {

@@ -78,6 +78,7 @@ export default function Navbar() {
       </div>
       <div className='nav-right'>
         <div className='nav-icon'>
+          <div className='nav-icon-img1' onClick={() => {navigate('/main/fav')}}/>
           <div className='nav-drop-right nav-spec'>
           <div className='nav-fav-title'>Favorite</div>
          {currentUser ? (
@@ -115,6 +116,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className='nav-icon'>
+          <div className='nav-icon-img2' onClick={() => {navigate('/main/cart')}}/>
           <div className='nav-drop-right nav-spec'>
           <div className='nav-fav-title'>Cosul meu</div>
           {currentUser ? (
@@ -153,7 +155,8 @@ export default function Navbar() {
             )}
           </div>
         </div>
-        <div className='nav-icon'>
+        <div className='nav-icon' >
+          <div className='nav-icon-img3' onClick={() => {navigate('/main/profile')}}/>
           <div className='nav-drop-right'>
           <div className='nav-fav-title'>Profil</div>
           {currentUser ? (
@@ -166,16 +169,9 @@ export default function Navbar() {
             )}
           </div>
         </div>
-        <div className='nav-icon'>
-          <div className='nav-drop-right nav-drop-set'>
-          <div className='nav-fav-title'>Optiuni</div>
-          {currentUser ? (
-            <div className='nav-set' onClick={handleLogout}>Deconectare</div>
-          ) : (
-            <div className='nav-set'><Link to='/connect'>Conectare</Link></div>
-          )}
-            <div className='nav-set'><Link to='/main/settings'>Setari</Link></div>
-          </div>
+        <div className='nav-icon' onClick={() => handleLogout()}>
+          <div className='nav-icon-img4' />
+          <div className='nav-drop-right nav-drop-set'>LogOut</div>
         </div>
       </div>
     </div>

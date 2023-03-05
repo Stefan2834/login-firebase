@@ -14,6 +14,7 @@
   background-color:var(--dark-principal);
   position: fixed;
   top:0;
+  box-shadow:0 4px 10px var(--dark-principal);
   z-index:100;
   color:var(--color-oposite);
   display: flex;
@@ -122,19 +123,25 @@
   aspect-ratio: 1/1;
   margin:0 20px;
   position: relative;
-  background-size: 35px 35px;
 }
-.nav-icon:nth-child(1) {
+.nav-icon-img1, .nav-icon-img2, .nav-icon-img3, .nav-icon-img4 {
+  background-size: 35px 35px;
+  position: absolute;
+  aspect-ratio: 1/1;
+  height:35px;
+  cursor: pointer;
+}
+.nav-icon-img1 {
   background-image: url(../../Main/svg/like.svg);
 }
-.nav-icon:nth-child(2) {
+.nav-icon-img2 {
   background-image: url(../../Main/svg/shopping-cart-one.svg);
 }
-.nav-icon:nth-child(3) {
+.nav-icon-img3 {
   background-image: url(../../Main/svg/people.svg);
 }
-.nav-icon:nth-child(4) {
-  background-image: url(../../Main/svg/setting-two.svg);
+.nav-icon-img4 {
+  background-image: url(../../Main/svg/logout.svg);
 }
 .nav-drop-right {
   position: absolute;
@@ -151,7 +158,6 @@
   color:var(--color);
   text-align: center;
   padding-right:5px;
-  position: relative;
   width:200px;
 }
 .nav-drop-right::before {
@@ -178,13 +184,16 @@
   opacity: 1;
   top:70px;
 }
+.nav-drop-set {
+  width:100px;
+  cursor: pointer;
+}
 .nav-connect {
   text-decoration: underline;
   color:var(--color);
 }
 .nav-spec {
   width:300px;
-  cursor: pointer;
 }
 .nav-profile-more {
   text-decoration: underline;
@@ -251,12 +260,6 @@
   line-height:15px;
   font-size:15px;
   color:rgb(42, 42, 42);
-}
-.nav-set {
-  text-decoration: underline;
-}
-.nav-drop-set {
-  width:150px;
 }
 .nav-tot {
   background-color: var(--color);

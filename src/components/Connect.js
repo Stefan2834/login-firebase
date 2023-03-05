@@ -1,4 +1,4 @@
-import React, {useState, useRef } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -21,6 +21,7 @@ export default function Connect() {
   const {
     server,
     setCurrentUser,
+    setDet
   } = useAuth();
   const {
     error,setError,
@@ -30,6 +31,13 @@ export default function Connect() {
   const navigate = useNavigate();
   const [loading, setLoading] =  useState(false);
   const [passView, setPassView] = useState([false,false,false]);
+
+  useEffect(() => {
+
+    setCurrentUser()
+    setDet({info:'', tel:'', email:'', name:''})
+  }, [])
+  
   
 
   async function handleSignUp(e) {

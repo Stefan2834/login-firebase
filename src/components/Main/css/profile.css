@@ -26,7 +26,8 @@
     position: absolute;
 }
 .prof-center, .prof-left, .prof-right {
-    height: 100vh;
+    height: auto;
+    min-height:calc(100vh - 50px);
 }
 .prof-left, .prof-right {
     background-color: #ddd;
@@ -56,13 +57,29 @@
 .prof-photo {
     width:150px;
     height:150px;
-    background-position: center;
-    background-size: 100px 100px;
     background-color: var(--dark-principal);
     border-radius: 50%;
     position: relative;
-    background-repeat: no-repeat;
+    overflow: hidden;
     box-shadow: 2px 2px 5px var(--color-oposite);
+}
+.prof-photo-slider {
+    width:300px;
+    height:150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 600ms ease;
+}
+.prof-photo-save, .prof-photo-edit {
+    width:150px;
+    height:150px;
+    background-position: center;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+}
+.prof-slide {
+    transform: translate(-50%);
 }
 .prof-photo-save {
     background-image: url(../svg/people.svg);
@@ -81,7 +98,7 @@
     justify-content: space-between;
     width:calc(200% + 200px);
     position: relative;
-    transition: 400ms ease;
+    transition: 600ms ease;
     align-self: flex-start;
 }
 .prof-det-txt {
@@ -114,7 +131,6 @@
     padding:3px 5px;
     background-color: #ddd;
     font-family: 'Poppins',sans-serif;
-    /* outline: 1px solid var(--dark-principal); */
     outline:none;
     caret-color: var(--color-oposite);
 }

@@ -13,7 +13,7 @@ export function useAuth() {
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading,setLoading] = useState(false);
-    const [det,setDet] = useState({info:'', tel:'', email:''})
+    const [det,setDet] = useState({info:'', tel:'', email:'', name:''})
     const server = 'http://localhost:9000';
     const cart = [{
         nume:'Adidasi negri',
