@@ -20,7 +20,7 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading,setLoading] = useState(false);
     const [det,setDet] = useState({info:'', tel:'', email:'', name:''})
-    const server = 'http://localhost:9000';
+    const server = process.env.REACT_APP_SERVER
     const [filter, setFilter] = useState({
       minPrice:'',
       maxPrice:'',
