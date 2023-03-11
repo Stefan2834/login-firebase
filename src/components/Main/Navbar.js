@@ -39,19 +39,19 @@ export default function Navbar() {
           <div className='nav-left-type'>Barbati</div>
           <div className='nav-drop'>
             <div className='nav-collumn'>
-              <div className='nav-collumn-title'><NavLink to='/'>Tricouri</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Tricouri</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Bluze</NavLink></div>
+              <div className='nav-collumn-title'><NavLink to='/main/cloth/man top'>Tricouri</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/man top tricouri'>Tricouri</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/man top bluze'>Bluze</NavLink></div>
             </div>
             <div className='nav-collumn'>
-              <div className='nav-collumn-title'><NavLink to='/'>Pantaloni</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Scurti</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Lungi</NavLink></div>
+              <div className='nav-collumn-title'><NavLink to='/main/cloth/man bottom'>Pantaloni</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/man bottom scurti'>Scurti</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/man bottom lungi'>Lungi</NavLink></div>
             </div>
             <div className='nav-collumn'>
-              <div className='nav-collumn-title'><NavLink to='/'>Incaltaminte</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Adidasi</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Papuci</NavLink></div>
+              <div className='nav-collumn-title'><NavLink to='/main/cloth/man foot'>Incaltaminte</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/man foot adidasi'>Adidasi</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/man foot papuci'>Papuci</NavLink></div>
             </div>
           </div>
         </div>
@@ -59,19 +59,19 @@ export default function Navbar() {
           <div className='nav-left-type'>Femei</div>
           <div className='nav-drop'>
             <div className='nav-collumn'>
-              <div className='nav-collumn-title'><NavLink to='/'>Tricouri</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Tricouri</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Bluze</NavLink></div>
+              <div className='nav-collumn-title'><NavLink to='/main/cloth/woman top'>Tricouri</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/woman top tricouri'>Tricouri</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/woman top bluze'>Bluze</NavLink></div>
             </div>
             <div className='nav-collumn'>
-              <div className='nav-collumn-title'><NavLink to='/'>Pantaloni</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Scurti</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Lungi</NavLink></div>
+              <div className='nav-collumn-title'><NavLink to='/main/cloth/woman bottom'>Pantaloni</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/woman bottom scurti'>Scurti</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/woman bottom lungi'>Lungi</NavLink></div>
             </div>
             <div className='nav-collumn'>
-              <div className='nav-collumn-title'><NavLink to='/'>Incaltaminte</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Adidasi</NavLink></div>
-              <div className='nav-collumn-prod'><NavLink to='/'>Papuci</NavLink></div>
+              <div className='nav-collumn-title'><NavLink to='/main/cloth/woman foot'>Incaltaminte</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/woman foot adidasi'>Adidasi</NavLink></div>
+              <div className='nav-collumn-prod'><NavLink to='/main/cloth/woman foot papuci'>Papuci</NavLink></div>
             </div>
           </div>
         </div>
@@ -82,30 +82,32 @@ export default function Navbar() {
           <div className='nav-drop-right nav-spec'>
           <div className='nav-fav-title'>Favorite</div>
          {currentUser ? (
-              !favorite ? (
-                <div className='nav-not'>Nu ai nimic in cos!</div>
+              favorite.length === 0 ? (
+                <div className='nav-tot'>Nu ai nimic la favorite</div>
               ) : (
                 <>
                 {favorite.map((product,index) => {
                   if(index < 4) {
                     return (
-                      <Link to='/'>
+                      <Link to={`/product/${product.id}`}>
                       <div className={product.sex === 'man' ? (
                           'nav-fav nav-fav-man'
                         ) : (
                           'nav-fav nav-fav-woman'
                         )}>
-                        <img src={product.poza} alt='Poza' className='nav-fav-photo'/>
-                        <Link to='/'>
-                        </Link>
+                        <img src={product.photo} alt='Poza' className='nav-fav-photo'/>
                         <div className='nav-fav-flex'>
                           <div className='nav-fav-nume'>{product.nume}</div>
-                          <div className='nav-fav-price'>{product.pret}RON</div>
+                          <div className='nav-fav-price'>{product.price}Lei</div>
                         </div>
                       </div>
                       </Link>
                     )
-                  } else return (<></>)
+                  } else if(index === 4) { return (
+                    <div>
+                      + Alte {favorite.length - 4} produse  
+                    </div>
+                  )}
                 })}
                 <div className='nav-tot'><Link to='/main/fav'>Vezi Favoritele</Link></div>
                 </>
@@ -133,14 +135,14 @@ export default function Navbar() {
                         ) : (
                           'nav-fav nav-fav-woman'
                         )}>
-                        <img src={product.poza} alt='Poza' className='nav-fav-photo'/>
+                        <img src={product.photo} alt='Poza' className='nav-fav-photo'/>
                         <Link to='/'>
                         </Link>
                         <div className='nav-fav-flex'>
                           <div className='nav-fav-nume'>{product.nume}</div>
                           <div className='nav-fav-size'>Marime: {product.size}</div>
                           <div className='nav-fav-nr'>Numar: {product.numar}</div>
-                          <div className='nav-fav-price'>{product.pret}RON</div>
+                          <div className='nav-fav-price'>{product.price} Lei</div>
                         </div>
                       </div>
                       </Link>
@@ -162,17 +164,24 @@ export default function Navbar() {
           {currentUser ? (
               <>
               <div className='nav-profile-email'>{currentUser.email}</div>
-              <div className='nav-profile-more'><NavLink to='/main/profile'>Profilul meu</NavLink></div>
+              <div className='nav-profile-more'><Link to='/main/profile'>Profilul meu</Link></div>
               </>
             ) : (
-              <div className='nav-connect'><NavLink to='/connect'>Conecteaza-te</NavLink></div>
+              <div className='nav-connect'><Link to='/connect'>Conecteaza-te</Link></div>
             )}
           </div>
         </div>
-        <div className='nav-icon' onClick={() => handleLogout()}>
-          <div className='nav-icon-img4' />
-          <div className='nav-drop-right nav-drop-set'>LogOut</div>
-        </div>
+        {currentUser ? (
+          <div className='nav-icon' onClick={() => handleLogout()}>
+            <div className='nav-icon-img4' />
+            <div className='nav-drop-right nav-drop-set'>Deconectare</div>
+          </div>
+        ) : (
+          <div className='nav-icon' onClick={() => navigate('/connect')}>
+            <div className='nav-icon-img5' />
+            <div className='nav-drop-right nav-drop-set'>Conectare</div>
+          </div>
+        )}
       </div>
     </div>
   )

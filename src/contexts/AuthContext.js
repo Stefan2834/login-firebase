@@ -1,8 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import product1 from '../clothing/barbati-pants.jpg'
-import product2 from '../clothing/barbati-shirt.jpg'
-import product3 from '../clothing/femei-shoes.jpg'
-import product4 from '../clothing/femei-shirt.jpg'
+import manPants from '../clothing/man/barbati-pants.jpg'
+import manTshirtBlack from '../clothing/man/barbati-shirt.jpg'
+import bluza from '../clothing/man/bluza.jpg'
+import tricouGalben from '../clothing/man/bluza-galbena.jpg'
+import hanoracAlb from '../clothing/man/hanorac-alb.jpg'
+import hanoracGalben from '../clothing/man/hanorac-galbne.jpg'
+import hanoracNegru from '../clothing/man/hanorac-negru.jpg'
+import hanoracRosu from '../clothing/man/hanorac-rosu.jpg'
+import tricouAlb from '../clothing/man/tricou-alb.jpg'
+import tricouGri from '../clothing/man/tricou-negru.jpg'
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -15,93 +21,310 @@ export function AuthProvider({children}) {
     const [loading,setLoading] = useState(false);
     const [det,setDet] = useState({info:'', tel:'', email:'', name:''})
     const server = 'http://localhost:9000';
-    const cart = [{
-        nume:'Adidasi negri',
-        pret:99.99,
-        numar:1,
-        poza:product1,
-        sex:'man',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product2,
-        sex:'woman',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product4,
-        sex:'woman',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product4,
-        sex:'man',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product3,
-        sex:'man',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product2,
-        sex:'man',
-        size:'M',
-    }]
-    const favorite = [{
-        nume:'Adidasi negri',
-        pret:99.99,
-        numar:1,
-        poza:product1,
-        sex:'man',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product2,
-        sex:'woman',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product4,
-        sex:'woman',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product4,
-        sex:'man',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product3,
-        sex:'man',
-        size:'M',
-      }, {
-        nume:'Sosete din bumbac',
-        pret:99.99,
-        numar:1,
-        poza:product2,
-        sex:'man',
-        size:'M',
-    }];
-
+    const [filter, setFilter] = useState({
+      minPrice:'',
+      maxPrice:'',
+      size: '',
+      sort:''
+    })
+    const [cart, setCart] = useState([{
+      nume:'Pantaloni Negri',
+      price:99.99,
+      numar:1,
+      photo:manPants,
+      sex:'man',
+      size:'M',
+    }])
+    const [favorite, setFavorite] = useState([])
+    const [product, setProduct] = useState([{
+      nume:'Tricou Negru',
+      price:29.99,
+      photo:manTshirtBlack,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top tricouri',
+      id:'0'
+    }, {
+      nume:'Tricou Albastru',
+      price:29.99,
+      photo:tricouGri,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top tricouri',
+      id:'1'
+    }, {
+      nume:'Bluza Dungi',
+      price:79.99,
+      photo:bluza,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'2'
+    }, {
+      nume:'Tricou Pac Man',
+      price:49.99,
+      photo:tricouGalben,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri',
+      id:'3'
+    }, {
+      nume:'Hanorac Alb',
+      price:149.99,
+      photo:hanoracAlb,
+      sex:'woman',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'4'
+    }, {
+      nume:'Hanorac Galben',
+      price:99.99,
+      photo:hanoracGalben,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'5'
+    }, {
+      nume:'Hanorac Negru',
+      price:129.99,
+      photo:hanoracNegru,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'6'
+    }, {
+      nume:'Hanorac Rosu',
+      price:89.99,
+      photo:hanoracRosu,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'7'
+    }, {
+      nume:'Tricou Alb',
+      price:49.99,
+      photo:tricouAlb,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri'  ,
+      id:'8'
+    }, {
+      nume:'Tricou Negru',
+      price:29.99,
+      photo:manTshirtBlack,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top tricouri',
+      id:'0'
+    }, {
+      nume:'Tricou Albastru',
+      price:29.99,
+      photo:tricouGri,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top tricouri',
+      id:'1'
+    }, {
+      nume:'Bluza Dungi',
+      price:79.99,
+      photo:bluza,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'2'
+    }, {
+      nume:'Tricou Pac Man',
+      price:49.99,
+      photo:tricouGalben,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri',
+      id:'3'
+    }, {
+      nume:'Hanorac Alb',
+      price:149.99,
+      photo:hanoracAlb,
+      sex:'woman',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'4'
+    }, {
+      nume:'Hanorac Galben',
+      price:99.99,
+      photo:hanoracGalben,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'5'
+    }, {
+      nume:'Hanorac Negru',
+      price:129.99,
+      photo:hanoracNegru,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'6'
+    }, {
+      nume:'Hanorac Rosu',
+      price:89.99,
+      photo:hanoracRosu,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'7'
+    }, {
+      nume:'Tricou Alb',
+      price:49.99,
+      photo:tricouAlb,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri'  ,
+      id:'8'
+    }, {
+      nume:'Tricou Negru',
+      price:29.99,
+      photo:manTshirtBlack,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top tricouri',
+      id:'0'
+    }, {
+      nume:'Tricou Albastru',
+      price:29.99,
+      photo:tricouGri,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top tricouri',
+      id:'1'
+    }, {
+      nume:'Bluza Dungi',
+      price:79.99,
+      photo:bluza,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'2'
+    }, {
+      nume:'Tricou Pac Man',
+      price:49.99,
+      photo:tricouGalben,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri',
+      id:'3'
+    }, {
+      nume:'Hanorac Alb',
+      price:149.99,
+      photo:hanoracAlb,
+      sex:'woman',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'4'
+    }, {
+      nume:'Hanorac Galben',
+      price:99.99,
+      photo:hanoracGalben,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'5'
+    }, {
+      nume:'Hanorac Negru',
+      price:129.99,
+      photo:hanoracNegru,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'6'
+    }, {
+      nume:'Hanorac Rosu',
+      price:89.99,
+      photo:hanoracRosu,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'7'
+    }, {
+      nume:'Tricou Alb',
+      price:49.99,
+      photo:tricouAlb,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri'  ,
+      id:'8'
+    }, {
+      nume:'Tricou Negru',
+      price:29.99,
+      photo:manTshirtBlack,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top tricouri',
+      id:'0'
+    }, {
+      nume:'Tricou Albastru',
+      price:29.99,
+      photo:tricouGri,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top tricouri',
+      id:'1'
+    }, {
+      nume:'Bluza Dungi',
+      price:79.99,
+      photo:bluza,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'2'
+    }, {
+      nume:'Tricou Pac Man',
+      price:49.99,
+      photo:tricouGalben,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri',
+      id:'3'
+    }, {
+      nume:'Hanorac Alb',
+      price:149.99,
+      photo:hanoracAlb,
+      sex:'woman',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'4'
+    }, {
+      nume:'Hanorac Galben',
+      price:99.99,
+      photo:hanoracGalben,
+      sex:'man',
+      size:['S','M','Xl'],
+      type:'man top bluze',
+      id:'5'
+    }, {
+      nume:'Hanorac Negru',
+      price:129.99,
+      photo:hanoracNegru,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'6'
+    }, {
+      nume:'Hanorac Rosu',
+      price:89.99,
+      photo:hanoracRosu,
+      sex:'man',
+      size:['S','M','L'],
+      type:'man top bluze',
+      id:'7'
+    }, {
+      nume:'Tricou Alb',
+      price:49.99,
+      photo:tricouAlb,
+      sex:'man',
+      size:['Xs','M','Xl'],
+      type:'man top tricouri'  ,
+      id:'8'
+    }])
     
     useEffect(() => {
         axios.get(`${server}/connect`)
@@ -112,10 +335,11 @@ export function AuthProvider({children}) {
 
     const value = {
         currentUser,setCurrentUser,
-        cart,favorite,
+        cart,favorite,setFavorite,
         det,setDet,
         loading, setLoading,
-        server,
+        server,product, setProduct,
+        filter,setFilter
     }
   return (
     <AuthContext.Provider value={value}>

@@ -9,14 +9,14 @@ export function useDefault() {
 export default function DefaultProvider({children}) {
     const [activeForm, setActiveForm] = useState(true)
     const [error, setError] = useState('');
-    const [url, setUrl] = useState()
+    const [productLoad, setProductLoad] = useState(8);
 
 
 
     const value = {
         error,setError,
-        url,setUrl,
         activeForm, setActiveForm,
+        productLoad, setProductLoad
     }
   return (
     <DefaultContext.Provider value={value}>

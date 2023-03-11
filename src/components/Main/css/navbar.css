@@ -15,11 +15,14 @@
   position: fixed;
   top:0;
   box-shadow:0 4px 10px var(--dark-principal);
-  z-index:100;
+  z-index:10;
   color:var(--color-oposite);
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.active {
+  background-color: var(--first);
 }
 .nav-left {
   display: flex;
@@ -124,7 +127,7 @@
   margin:0 20px;
   position: relative;
 }
-.nav-icon-img1, .nav-icon-img2, .nav-icon-img3, .nav-icon-img4 {
+.nav-icon-img1, .nav-icon-img2, .nav-icon-img3, .nav-icon-img4, .nav-icon-img5 {
   background-size: 35px 35px;
   position: absolute;
   aspect-ratio: 1/1;
@@ -142,6 +145,10 @@
 }
 .nav-icon-img4 {
   background-image: url(../../Main/svg/logout.svg);
+}
+.nav-icon-img5 {
+  background-image: url(../../Main/svg/logout.svg);
+  transform: rotate(180deg);
 }
 .nav-drop-right {
   position: absolute;
@@ -209,7 +216,7 @@
   position: relative;
 }
 .nav-fav-man {
-  background:linear-gradient(to right,#eeeeee, var(--second))
+  background:linear-gradient(to right,#eee, var(--second))
 }
 .nav-fav-woman {
   background: linear-gradient(to right, #eee, var(--first));
@@ -272,7 +279,6 @@
   margin:10px 0;
   color:var(--black);
   font-family: 'Noto sans serif', sans-serif;
-  cursor: pointer;
   font-weight: 800;
   box-shadow: 1px 1px 2px var(--black);
 }

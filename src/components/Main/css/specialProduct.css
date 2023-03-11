@@ -1,0 +1,18 @@
+:root {
+    --black:#0b0b0b;
+    --dark-principal:#0b0b0b;
+    --color:white;
+    --color-second:#eeeeee;
+    --color-oposite:#0b0b0b;
+    --gradient: linear-gradient(to right, #d604cf, #9822ff);
+    --first:#e684ae;
+    --second:#79cbca;
+}
+.special {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    width:100vw;
+    height:100vh;
+}

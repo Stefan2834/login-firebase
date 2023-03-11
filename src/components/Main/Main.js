@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Main() {
     const [activeForm, setActiveForm] = useState(true)
@@ -25,7 +26,7 @@ export default function Main() {
                         <div className='main-man-flex'>
                             <div className='main-man-cloth'>
                                 <div className='main-man-cloth-text'>Tricouri</div>
-                                <div className='main-man-cloth-more'>Mai multe</div>
+                                <div className='main-man-cloth-more'><Link to='/main/cloth/man top'>Mai multe</Link></div>
                             </div>
                             <div className='main-man-cloth'>
                                 <div className='main-man-cloth-text'>Pantaloni</div>

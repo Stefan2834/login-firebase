@@ -1,6 +1,9 @@
 import '../index.css';
 import './Main/css/navbar.css'
+import './Main/css/sidebar.css'
 import './Main/css/profile.css'
+import './Main/css/clothing.css'
+import './Main/css/specialProduct.css'
 import { useEffect } from 'react';
 import { AuthProvider } from '../contexts/AuthContext';
 import DefaultProvider from '../contexts/DefaultContext';
@@ -8,7 +11,9 @@ import { BrowserRouter, Outlet, Route, Routes, useNavigate } from 'react-router-
 import Connect from './Connect';
 import Main from './Main/Main';
 import Navbar from './Main/Navbar';
+import Sidebar from './Main/Sidebar';
 import Profile from './Main/Profile'
+import SpecialProduct from './Main/Layout/SpecialProduct';
 import Clothing from './Main/Layout/Clothing'
 import PrivateRoute from './PrivateRoute';
 
@@ -28,6 +33,13 @@ const GoTo = () => {
 const NotFound = () => (
   <>Pagina in lucru, sau link gresit.</>
 )
+const SecondLayout = () => (
+  <>
+  <Navbar />
+  <Sidebar />
+  <Outlet />
+  </>
+)
 
 function App() {
   return (
@@ -40,9 +52,12 @@ function App() {
             <Route path='/main' element={<Layout />} >
               <Route exact index element={<Main />} />
               <Route path='profile' element={<PrivateRoute element={Profile} />} />
-              <Route path='man'>
-                <Route path=':idMan' exact index element={<Clothing />} />
+              <Route path='cloth' element={<SecondLayout /> } >
+                <Route path=':id' element={<Clothing /> } />
               </Route>
+            </Route>
+            <Route path='product' exact element={<Layout />} >
+              <Route path=":idPath" exact element={<SpecialProduct />} />
             </Route>
             <Route path='*' index element={<NotFound />} />
           </Routes>

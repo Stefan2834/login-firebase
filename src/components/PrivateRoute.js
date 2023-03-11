@@ -8,6 +8,6 @@ export default function PrivateRoute({ element: Element}) {
   return currentUser ? (
     <Element />
   ) : (
-    <Navigate to="/" replace />
+    <Navigate to="/connect" replace />
   );
 }

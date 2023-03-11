@@ -23,7 +23,9 @@
     z-index:1;
     background-color: #eee;
     opacity: 0.5;
-    position: absolute;
+    position: fixed;
+    top:0;
+    left:0;
 }
 .prof-center, .prof-left, .prof-right {
     height: auto;
