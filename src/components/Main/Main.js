@@ -30,11 +30,11 @@ export default function Main() {
                             </div>
                             <div className='main-man-cloth'>
                                 <div className='main-man-cloth-text'>Pantaloni</div>
-                                <div className='main-man-cloth-more'>Mai multe</div>
+                                <div className='main-man-cloth-more'><Link to='/main/cloth/man bottom'>Mai multe</Link></div>
                             </div>
                             <div className='main-man-cloth'>
                                 <div className='main-man-cloth-text'>Adidasi</div>
-                                <div className='main-man-cloth-more'>Mai multe</div>
+                                <div className='main-man-cloth-more'><Link to='/main/cloth/man foot'>Mai multe</Link></div>
                             </div>
                         </div>
                         <button className='main-acc-btn'>Vezi tot</button>
@@ -46,15 +46,15 @@ export default function Main() {
                         <div className='main-woman-flex'>
                             <div className='main-woman-cloth'>
                                 <div className='main-woman-cloth-text'>Tricouri</div>
-                                <div className='main-woman-cloth-more'>Mai multe</div>
+                                <div className='main-woman-cloth-more'><Link to='/main/cloth/woman top'>Mai multe</Link></div>
                             </div>
                             <div className='main-woman-cloth'>
                                 <div className='main-woman-cloth-text'>Pantaloni</div>
-                                <div className='main-woman-cloth-more'>Mai multe</div>
+                                <div className='main-woman-cloth-more'><Link to='/main/cloth/woman bottom'>Mai multe</Link></div>
                             </div>
                             <div className='main-woman-cloth'>
                                 <div className='main-woman-cloth-text'>Adidasi</div>
-                                <div className='main-woman-cloth-more'>Mai multe</div> 
+                                <div className='main-woman-cloth-more'><Link to='/main/cloth/woman foot'>Mai multe</Link></div> 
                             </div>
                         </div>
                         <button className='main-acc-btn'>Vezi tot</button>

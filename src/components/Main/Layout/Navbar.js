@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavLink,Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../../contexts/AuthContext'
 import axios from 'axios'
-import { useDefault } from '../../contexts/DefaultContext'
+import { useDefault } from '../../../contexts/DefaultContext'
 
 
 export default function Navbar() {
@@ -11,9 +11,12 @@ export default function Navbar() {
     favorite,
     cart,
     setCurrentUser,
-    server
+    server, 
   } = useAuth()
-  const {setError,setActiveForm} = useDefault()
+  const {setError,setActiveForm,
+    favRemove, cartRemove,
+    darkTheme, setDarkTheme
+  } = useDefault()
   const navigate = useNavigate()
   
   async function handleLogout() {
@@ -77,13 +80,23 @@ export default function Navbar() {
         </div>
       </div>
       <div className='nav-right'>
+        <div className='nav-theme'>
+          <label>
+            <input type='checkbox' value={darkTheme} className='nav-theme-input'
+              onChange={() => setDarkTheme(c => !c)} 
+            />
+            <span className='nav-switch'>
+              <span className={darkTheme ? 'nav-handle' : 'nav-handle-dark'}/>
+            </span>
+          </label>
+        </div>
         <div className='nav-icon'>
-          <div className='nav-icon-img1' onClick={() => {navigate('/main/fav')}}/>
+          <div className={darkTheme ? 'nav-icon-dark-img1' : 'nav-icon-img1'} onClick={() => {navigate('/main/fav')}}/>
           <div className='nav-drop-right nav-spec'>
           <div className='nav-fav-title'>Favorite</div>
          {currentUser ? (
               favorite.length === 0 ? (
-                <div className='nav-tot'>Nu ai nimic la favorite</div>
+                <div className='nav-none'>Nu ai nimic la favorite!</div>
               ) : (
                 <>
                 {favorite.map((product,index) => {
@@ -98,7 +111,9 @@ export default function Navbar() {
                         <img src={product.photo} alt='Poza' className='nav-fav-photo'/>
                         <div className='nav-fav-flex'>
                           <div className='nav-fav-nume'>{product.nume}</div>
-                          <div className='nav-fav-price'>{product.price}Lei</div>
+                          <div className='nav-fav-price'>{product.price} Lei
+                            <div className='nav-fav-del1' onClick={e => {e.preventDefault(); favRemove(product)}} />
+                          </div>
                         </div>
                       </div>
                       </Link>
@@ -109,7 +124,7 @@ export default function Navbar() {
                     </div>
                   )}
                 })}
-                <div className='nav-tot'><Link to='/main/fav'>Vezi Favoritele</Link></div>
+                <div className='nav-tot'><Link className='flex' to='/main/fav'>Vezi Favoritele<div className={darkTheme ? 'nav-arrow-dark' :'nav-arrow'} /></Link></div>
                 </>
                 )
             ) : (
@@ -118,38 +133,38 @@ export default function Navbar() {
           </div>
         </div>
         <div className='nav-icon'>
-          <div className='nav-icon-img2' onClick={() => {navigate('/main/cart')}}/>
+          <div className={darkTheme ? 'nav-icon-dark-img2' : 'nav-icon-img2'} onClick={() => {navigate('/main/cart')}}/>
           <div className='nav-drop-right nav-spec'>
           <div className='nav-fav-title'>Cosul meu</div>
           {currentUser ? (
-              !cart ? (
-                <div className='nav-not'>Nu ai nimic in cos!</div>
+              cart.length === 0 ? (
+                <div className='nav-none'>Nu ai nimic in cos!</div>
               ) : (
                 <>
                 {cart.map((product,index) => {
                   if(index < 4) {
                     return (
-                      <Link to='/'>
+                      <Link to={`/product/${product.id}`}>
                       <div className={product.sex === 'man' ? (
                           'nav-fav nav-fav-man'
                         ) : (
                           'nav-fav nav-fav-woman'
                         )}>
                         <img src={product.photo} alt='Poza' className='nav-fav-photo'/>
-                        <Link to='/'>
-                        </Link>
                         <div className='nav-fav-flex'>
                           <div className='nav-fav-nume'>{product.nume}</div>
                           <div className='nav-fav-size'>Marime: {product.size}</div>
                           <div className='nav-fav-nr'>Numar: {product.numar}</div>
-                          <div className='nav-fav-price'>{product.price} Lei</div>
+                          <div className='nav-fav-price'>{product.price} Lei
+                            <div className='nav-fav-del2' onClick={e => {e.preventDefault(); cartRemove(product)}} />
+                          </div>
                         </div>
                       </div>
                       </Link>
                     )
                   } else return (<></>)
                 })}
-                <div className='nav-tot'><Link to='/main/cart'>Vezi Cosul</Link></div>
+                <div className='nav-tot'><Link className='flex' to='/main/cart'>Vezi Cosul<div className={darkTheme ? 'nav-arrow-dark' :'nav-arrow'} /></Link></div>
                 </>
               )
             ) : (
@@ -158,13 +173,13 @@ export default function Navbar() {
           </div>
         </div>
         <div className='nav-icon' >
-          <div className='nav-icon-img3' onClick={() => {navigate('/main/profile')}}/>
+          <div className={darkTheme ? 'nav-icon-dark-img3' : 'nav-icon-img3'} onClick={() => {navigate('/main/profile')}}/>
           <div className='nav-drop-right'>
           <div className='nav-fav-title'>Profil</div>
           {currentUser ? (
               <>
               <div className='nav-profile-email'>{currentUser.email}</div>
-              <div className='nav-profile-more'><Link to='/main/profile'>Profilul meu</Link></div>
+              <div className='nav-tot'><Link className='flex' to='/main/profile'>Vezi Profilul<div className={darkTheme ? 'nav-arrow-dark' :'nav-arrow'} /></Link></div>
               </>
             ) : (
               <div className='nav-connect'><Link to='/connect'>Conecteaza-te</Link></div>
@@ -172,14 +187,20 @@ export default function Navbar() {
           </div>
         </div>
         {currentUser ? (
-          <div className='nav-icon' onClick={() => handleLogout()}>
-            <div className='nav-icon-img4' />
-            <div className='nav-drop-right nav-drop-set'>Deconectare</div>
+          <div className='nav-icon'>
+            <div className={darkTheme ? 'nav-icon-dark-img4' : 'nav-icon-img4'} onClick={() => handleLogout()} />
+            <div className='nav-drop-right nav-drop-set'>
+              <div className='nav-fav-title'>Optiuni</div>
+              <div className='nav-set' onClick={() => handleLogout()}>Deconectare</div>
+            </div>
           </div>
         ) : (
-          <div className='nav-icon' onClick={() => navigate('/connect')}>
-            <div className='nav-icon-img5' />
-            <div className='nav-drop-right nav-drop-set'>Conectare</div>
+          <div className='nav-icon'>
+            <div className={darkTheme ? 'nav-icon-dark-img5' : 'nav-icon-img5'} onClick={() => navigate('/connect')} />
+            <div className='nav-drop-right nav-drop-set'>
+              <div className='nav-fav-title'>Optiuni</div>
+              <div className='nav-set' onClick={() => navigate('/connect')}>Conectare</div>
+            </div>
           </div>
         )}
       </div>

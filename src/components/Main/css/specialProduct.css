@@ -11,8 +11,36 @@
 .special {
     display: flex;
     align-items:center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     width:100vw;
     height:100vh;
+    margin-top:60px;
+}
+.special-div {
+    margin:10px 5px;
+    width:270px;
+    height:420px;
+}
+.special-img {
+    height:350px;
+    width:270px;
+    overflow: hidden;
+}
+.special-photo {
+    height:350px;
+    width:100%;
+    overflow: hidden;
+    cursor:zoom-in;
+}
+.special-photo-zoom {
+    height:calc(100vh - 120px);
+    width:270px;
+    overflow: hidden;
+    margin-top:60px;
+    cursor:zoom-out;
+}
+.special-photo-zoom .special-img {
+    height:calc(100vh);
+    aspect-ratio: 9/14;
 }

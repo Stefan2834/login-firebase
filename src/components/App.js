@@ -10,8 +10,8 @@ import DefaultProvider from '../contexts/DefaultContext';
 import { BrowserRouter, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import Connect from './Connect';
 import Main from './Main/Main';
-import Navbar from './Main/Navbar';
-import Sidebar from './Main/Sidebar';
+import Navbar from './Main/Layout/Navbar';
+import Sidebar from './Main/Layout/Sidebar';
 import Profile from './Main/Profile'
 import SpecialProduct from './Main/Layout/SpecialProduct';
 import Clothing from './Main/Layout/Clothing'

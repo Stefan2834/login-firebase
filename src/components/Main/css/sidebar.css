@@ -12,9 +12,9 @@
 .side-filter-bar {
     width:230px;
     height:100vh;
-    background-color: var(--dark-principal);
+    background-color: var(--color);
     position: fixed;
-    color:var(--color);
+    color:var(--color-oposite);
     padding:70px 10px 20px 10px;
     display: flex;
     align-items: center;
@@ -28,12 +28,15 @@
     justify-content: center;
     flex-direction: column;
     margin-top:10px;
+    background-color: var(--color);
 }
 .side-price-input {
     outline: none;
-    color:black;
+    color:var(--color-second);
+    opacity: 0.9;
     width:100%;
     padding:3px 5px;
+    background-color: var(--color-oposite);
 }
 .side-flex {
     display: flex;
@@ -49,7 +52,7 @@
     text-align: center;
 }
 .side-size {
-    color:var(--color-second);
+    color:var(--color-oposite);
     display: flex;
     align-items: center;
     justify-content:space-around;
@@ -61,12 +64,18 @@
 }
 .side-size-check:checked ~ .side-size-label {
     background-color: var(--second);
-    color:var(--dark-principal)
+    color:var(--color)
 }
 .side-size-check:checked ~ .side-size-label .side-size-img-up {
-    background-image: url(../svg-dark/arrow-up.svg);
+    background-image: url(../svg/arrow-up.svg);
 }
 .side-size-check:checked ~ .side-size-label .side-size-img-down {
+    background-image: url(../svg/arrow-down.svg);
+}
+.side-size-check:checked ~ .side-size-label .side-size-img-up-dark {
+    background-image: url(../svg-dark/arrow-up.svg);
+}
+.side-size-check:checked ~ .side-size-label .side-size-img-down-dark {
     background-image: url(../svg-dark/arrow-down.svg);
 }
 .side-size-label {
@@ -77,16 +86,22 @@
     align-items: center;
     justify-content: center;
 }
-.side-size-img-up, .side-size-img-down {
+.side-size-img-up, .side-size-img-down, .side-size-img-up-dark, .side-size-img-down-dark {
     width:16px;
     height:16px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 .side-size-img-up {
-    background-image: url(../svg/arrow-up.svg)
+    background-image: url(../svg-dark/arrow-up.svg)
 }
 .side-size-img-down {
+    background-image: url(../svg-dark/arrow-down.svg)
+}
+.side-size-img-up-dark {
+    background-image: url(../svg/arrow-up.svg)
+}
+.side-size-img-down-dark {
     background-image: url(../svg/arrow-down.svg)
 }
 .side-sort {

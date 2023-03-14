@@ -6,9 +6,12 @@ import { useDefault } from "../../../contexts/DefaultContext";
 export default function Clothing () {
     const { product, setProduct,
       favorite, setFavorite,
-      filter, 
+      filter,
+      currentUser
     } = useAuth()
-    const { productLoad, setProductLoad } = useDefault()
+    const { productLoad, setProductLoad,
+      favAdd, favRemove
+    } = useDefault()
     const [loading, setLoading] = useState(true);
     let noProduct = 0;
     
@@ -26,7 +29,9 @@ export default function Clothing () {
 
     const handleFilter = (product) => {
       if(product.type.includes(filter.type)) {
-        if((filter.maxPrice > product.price && filter.minPrice < product.price) || (filter.maxPrice === '' || filter.minPrice === '')) {
+        if((filter.maxPrice > product.price && filter.minPrice < product.price) || 
+        (filter.maxPrice > product.price && filter.minPrice === '') ||
+        (filter.minPrice < product.price && filter.maxPrice === '')) {
           if(filter.size === '' || product.size.includes(filter.size)) {
             noProduct += 1;
             return true
@@ -34,12 +39,6 @@ export default function Clothing () {
         }
       }
       return false
-    }
-    const favAdd = (product) => {
-      setFavorite([...favorite, product])
-    }
-    const favRemove = (product) => {
-      setFavorite(favorite.filter(fav => fav.id !== product.id))
     }
 
 
@@ -52,7 +51,7 @@ export default function Clothing () {
       </div>
     )}
     <div className='cloth'>
-        {product.map((product,index) => {if (handleFilter(product) && noProduct <= productLoad) {
+        {product.map((product) => {if (handleFilter(product) && noProduct <= productLoad) {
           return (
             <div className='cloth-div'>
               <Link to={`/product/${product.id}`}>

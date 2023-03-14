@@ -21,6 +21,7 @@ export function AuthProvider({children}) {
     const [loading,setLoading] = useState(false);
     const [det,setDet] = useState({info:'', tel:'', email:'', name:''})
     const server = process.env.REACT_APP_SERVER
+    // const server = 'http://localhost:9000'
     const [filter, setFilter] = useState({
       minPrice:'',
       maxPrice:'',
@@ -28,12 +29,14 @@ export function AuthProvider({children}) {
       sort:''
     })
     const [cart, setCart] = useState([{
-      nume:'Pantaloni Negri',
-      price:99.99,
-      numar:1,
-      photo:manPants,
+      nume:'Bluza Dungi',
+      price:79.99,
+      photo:bluza,
       sex:'man',
-      size:'M',
+      size:'S',
+      type:'man top bluze',
+      id:'2',
+      numar:1,
     }])
     const [favorite, setFavorite] = useState([])
     const [product, setProduct] = useState([{
@@ -335,7 +338,8 @@ export function AuthProvider({children}) {
 
     const value = {
         currentUser,setCurrentUser,
-        cart,favorite,setFavorite,
+        cart,setCart, 
+        favorite,setFavorite,
         det,setDet,
         loading, setLoading,
         server,product, setProduct,

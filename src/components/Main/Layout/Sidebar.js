@@ -1,11 +1,11 @@
 import React,{ useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useAuth } from '../../contexts/AuthContext'
-import { useDefault } from '../../contexts/DefaultContext'
+import { useAuth } from '../../../contexts/AuthContext'
+import { useDefault } from '../../../contexts/DefaultContext'
 
 export default function Sidebar() {
     const { filter, setFilter } = useAuth()
-    const { setProductLoad } = useDefault()
+    const { setProductLoad, darkTheme } = useDefault()
     const { id } = useParams()
     const [sizeType, setSizeType] = useState([])
     const navigate = useNavigate()
@@ -80,28 +80,28 @@ export default function Sidebar() {
                 checked={filter.sort === 'price+'}
                 onChange={e => e.target.checked && setFilter({...filter, sort:'price+'})}
               />
-              <div className="side-size-label">Pret <div className="side-size-img-up" /></div>
+              <div className="side-size-label">Pret <div className={darkTheme ? 'side-size-img-up-dark' : "side-size-img-up"}/></div>
             </label>
             <label className="my-1 w-full">
               <input type='checkbox' className="side-size-check"
                 checked={filter.sort === 'price-'}
                 onChange={e => e.target.checked && setFilter({...filter, sort:'price-'})}
               />
-              <div className="side-size-label">Pret <div className="side-size-img-down" /></div>
+              <div className="side-size-label">Pret <div className={darkTheme ? 'side-size-img-down-dark' : "side-size-img-down"} /></div>
             </label>
             <label className="my-1 w-full">
               <input type='checkbox' className="side-size-check"
                 checked={filter.sort === 'review+'}
                 onChange={e => e.target.checked && setFilter({...filter, sort:'review+'})}
               />
-              <div className="side-size-label">Calitate <div className="side-size-img-up" /></div>
+              <div className="side-size-label">Calitate <div className={darkTheme ? 'side-size-img-up-dark' : "side-size-img-up"} /></div>
             </label>
             <label className="my-1 w-full">
               <input type='checkbox' className="side-size-check"
                 checked={filter.sort === 'review-'}
                 onChange={e => e.target.checked && setFilter({...filter, sort:'review-'})}
               />
-              <div className="side-size-label">Calitate <div className="side-size-img-down" /></div>
+              <div className="side-size-label">Calitate <div className={darkTheme ? 'side-size-img-down-dark' : "side-size-img-down"} /></div>
             </label>
           </div>
         </div>

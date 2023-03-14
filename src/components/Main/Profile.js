@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 import axios from "axios";
+import { useDefault } from "../../contexts/DefaultContext";
 
 export default function Profile () {
     const {
         currentUser,
         det, setDet,server,
     } = useAuth()
+    const { darkTheme } = useDefault()
     const [infoChange, setInfoChange] = useState(false)
     const [preDet, setPreDet] = useState({})
     const [loading,setLoading] = useState(true);
@@ -47,9 +49,8 @@ export default function Profile () {
         axios.post(`${server}/user/info`, {
             uid: currentUser.uid
         })
-        .then(info => {setDet(info.data.det); setPreDet(info.data.det);})
+        .then(info => {setDet(info.data.det); setPreDet(info.data.det); setLoading(false)})
         .catch(err => console.error(err.error))
-        setLoading(false)
     }, [])
 
     return (
@@ -63,8 +64,8 @@ export default function Profile () {
             <div className="prof-center">
                 <div className="prof-photo">
                     <div className={infoChange ? 'prof-photo-slider prof-slide' : 'prof-photo-slider'}>
-                        <div className="prof-photo-save"></div>
-                        <div className="prof-photo-edit"></div>
+                        <div className={darkTheme ? "prof-photo-save-dark" : "prof-photo-save"}></div>
+                        <div className={darkTheme ? "prof-photo-edit-dark" : "prof-photo-edit"}></div>
                     </div>
                 </div>
                 <div className="prof-txt text-center">Salut, {det.name}!</div>
